@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generic Builder</title>
+    <script defer src="index.js"></script>
+    <link href="global.css" rel="stylesheet"/>
+
+</head>
+<body>
+<div class="form-center">
+    <form>
+        <label for="ruleTargetType">ruleTargetType</label>
+        <input id="ruleTargetType" name="ruleTargetType"/>
+        <div></div>
+        <label for="IsRulesEngineBaseEntity">IsRulesEngineBaseEntity</label>
+        <input id="IsRulesEngineBaseEntity" name="IsRulesEngineBaseEntity" type="checkbox"/>
+        <div></div>
+        <label for="RulesEngineEntitySubTypes">RulesEngineEntitySubTypes</label>
+        <input id="RulesEngineEntitySubTypes" name="RulesEngineEntitySubTypes"/>
+        <div></div>
+        <label for="AdditionalCollectionsToExposeInRE">AdditionalCollectionsToExposeInRE</label>
+        <input id="AdditionalCollectionsToExposeInRE" name="AdditionalCollectionsToExposeInRE"/>
+        <div></div>
+        <hr class="dashed">
+
+        <label for="IsCronTriggered">IsCronTriggered</label>
+        <input id="IsCronTriggered" name="IsCronTriggered" onclick="show('cron',this)" type="checkbox"/>
+        <div></div>
+        <div id="cron">
+            <label for="cronExpression">cronExpression</label>
+            <input id="cronExpression" name="cronExpression"/>
+            <div></div>
+        </div>
+        <hr class="dashed">
+
+        <label for="ContinueWith">ContinueWith</label>
+        <input id="ContinueWith" name="ContinueWith"/>
+        <div></div>
+        <label for="ShouldIndexEntity">ShouldIndexEntity</label>
+        <input id="ShouldIndexEntity" name="ShouldIndexEntity" type="checkbox"/>
+        <div></div>
+        <label for="IsRegionLess">IsRegionLess</label>
+        <input id="IsRegionLess" name="IsRegionLess" onclick="show('region',this,true)" type="checkbox"/>
+        <div></div>
+        <div id="region">
+            <label for="ExcludedRegions">ExcludedRegions</label>
+            <input id="ExcludedRegions" name="ExcludedRegions"/>
+            <div></div>
+        </div>
+
+        <label for="ExcludedVendors">ExcludedVendors</label>
+        <input id="ExcludedVendors" name="ExcludedVendors"/>
+        <div></div>
+        <label for="RequiredPermission">RequiredPermission</label>
+        <input id="RequiredPermission" name="RequiredPermission"/>
+        <div></div>
+        <label for="ResponsePropertyToUse">ResponsePropertyToUse</label>
+        <input id="ResponsePropertyToUse" name="ResponsePropertyToUse"/>
+        <div></div>
+        <label for="PropertiesToRemoveFromExternalObject">PropertiesToRemoveFromExternalObject</label>
+        <input id="PropertiesToRemoveFromExternalObject" name="PropertiesToRemoveFromExternalObject"/>
+        <div></div>
+        <label for="ExternalEntityIdProperty">ExternalEntityIdProperty</label>
+        <input id="ExternalEntityIdProperty" name="ExternalEntityIdProperty"/>
+        <div></div>
+        <label for="ExternalEntityNameProperty">ExternalEntityNameProperty</label>
+        <input id="ExternalEntityNameProperty" name="ExternalEntityNameProperty"/>
+        <div></div>
+        <label for="ExternalEntityTagsProperty">ExternalEntityTagsProperty</label>
+        <input id="ExternalEntityTagsProperty" name="ExternalEntityTagsProperty"/>
+        <div></div>
+        <label for="RequestName">RequestName</label>
+        <input id="RequestName" name="RequestName"/>
+        <div></div>
+        <label for="LookupEventSources">LookupEventSources</label>
+        <input id="LookupEventSources" name="LookupEventSources"/>
+        <div></div>
+        <label for="AssemblyName">AssemblyName</label>
+        <input id="AssemblyName" name="AssemblyName"/>
+        <div></div>
+        <label for="RequestParameters">RequestParameters</label>
+        <input id="RequestParameters" name="RequestParameters"/>
+        <div></div>
+        <label for="PaginationMarker">PaginationMarker</label>
+        <input id="PaginationMarker" name="PaginationMarker"/>
+        <div></div>
+        <label for="MaxPages">MaxPages</label>
+        <input id="MaxPages" name="MaxPages"/>
+        <div></div>
+        <label for="IsExternalIdGenerated">IsExternalIdGenerated</label>
+        <input id="IsExternalIdGenerated" name="IsExternalIdGenerated" type="checkbox"/>
+        <div></div>
+        <hr class="dashed">
+        <label for="ShouldEnrichBaseEntity">ShouldEnrichBaseEntity</label>
+        <input id="ShouldEnrichBaseEntity" name="ShouldEnrichBaseEntity" onclick="show('enrichment',this)"
+               type="checkbox"/>
+        <div></div>
+        <div id="enrichment">
+            <label for="ENRRequestName">RequestName</label>
+            <input id="ENRRequestName" name="ENRRequestName"/>
+            <div></div>
+            <label for="ENRRequiredPermission">RequiredPermission</label>
+            <input id="ENRRequiredPermission" name="ENRRequiredPermission"/>
+            <div></div>
+            <label for="ENRSubType">SubType</label>
+            <input id="ENRSubType" name="ENRSubType"/>
+            <div></div>
+            <label for="ENRRequestParameters">RequestParameters</label>
+            <input id="ENRRequestParameters" name="ENRRequestParameters"/>
+            <div></div>
+            <label for="ENRRequestParametersFromBaseEntity">RequestParametersFromBaseEntity</label>
+            <input id="ENRRequestParametersFromBaseEntity" name="ENRRequestParametersFromBaseEntity"/>
+            <div></div>
+            <label for="ENRResponsePropertyToUse">ResponsePropertyToUse</label>
+            <input id="ENRResponsePropertyToUse" name="ENRResponsePropertyToUse"/>
+            <div></div>
+            <label for="ENRPropertiesToRemoveFromExternalObject">PropertiesToRemoveFromExternalObject</label>
+            <input id="ENRPropertiesToRemoveFromExternalObject" name="ENRPropertiesToRemoveFromExternalObject"/>
+            <div></div>
+            <label for="ENRPaginationMarker">PaginationMarker</label>
+            <input id="ENRPaginationMarker" name="ENRPaginationMarker"/>
+            <div></div>
+        </div>
+
+        <hr class="dashed">
+
+        <button type="submit">Submit</button>
+
+
+        <pre><code id="result">{}</code></pre>
+    </form>
+</div>
+</body>
+</html>

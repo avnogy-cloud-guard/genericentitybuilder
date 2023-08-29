@@ -1,0 +1,14 @@
+.form-center {
+    display:flex;
+    justify-content: center;
+}
+#code {
+    font-family: Consolas,monospace;
+}
+
+#enrichment, #cron  {
+    display: none;
+}
+#region ,#advcron{
+    display: block;
+}
