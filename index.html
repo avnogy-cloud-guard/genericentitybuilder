@@ -28,14 +28,18 @@
         <input id="IsCronTriggered" name="IsCronTriggered" onclick="show('cron',this)" type="checkbox"/>
         <div></div>
         <div id="cron">
-            <label for="cronExpression">cronExpression</label>
-            <input id="cronExpression" name="cronExpression"/>
+            <label for="CronExpression">CronExpression</label>
+            <input id="CronExpression" name="CronExpression"/>
             <div></div>
         </div>
         <hr class="dashed">
 
-        <label for="ContinueWith">ContinueWith</label>
-        <input id="ContinueWith" name="ContinueWith"/>
+        <label for="ContinueWithInput">ContinueWith</label>
+        <input type="text" id="ContinueWithInput">
+        <button type="button" id="addButton" onclick="addAnswer()">+</button>
+        <ul id="ContinueWithList"></ul>
+        <hr class="dashed">
+
         <div></div>
         <label for="ShouldIndexEntity">ShouldIndexEntity</label>
         <input id="ShouldIndexEntity" name="ShouldIndexEntity" type="checkbox"/>

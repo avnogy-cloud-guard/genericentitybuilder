@@ -1,6 +1,6 @@
 const result_elem = document.getElementById("result");
 
-function show(who,obj,rev){
+function show(who, obj, rev) {
     if ((rev && !obj.checked) || !rev && obj.checked) {
 
         document.getElementById(who).style.display = 'block';
@@ -11,7 +11,7 @@ function show(who,obj,rev){
 
 
 function isEmpty(value) {
-    return (typeof value === undefined || value === "" || value === '' || value === null || value === {} || value === [])
+    return (typeof value === undefined || value === "" || value === '' || value == null || value === {} || value === [] || value.length === 0)
 }
 
 function replacer(key, value) {
@@ -21,16 +21,36 @@ function replacer(key, value) {
     return value;
 }
 
+function addAnswer() {
+    let input = document.getElementById('ContinueWithInput');
+    let text = input.value;
+    if (text !== '') {
+        let li = document.createElement('li');
+        li.textContent = text;
+        li.addEventListener('click', function () {
+            this.parentNode.removeChild(this);
+        });
+        document.getElementById('ContinueWithList').appendChild(li);
+        input.value = '';
+    }
+}
+
 function handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
     let obj = Object.fromEntries(data.entries());
 
+    let ContinueWith = Array.from(document.querySelectorAll('#ContinueWithList li')).map(function (li) {
+        return li.textContent;
+    });
+
     let BasicEnrichmentConfig = (document.getElementById("ShouldEnrichBaseEntity").checked) ? {
         "ApiCall": obj.ENRRequestName,
         "RequestParameters": obj.ENRRequestParameters,
         "RequiredPermissionConfig": {
-            "RequiredPermission": obj.ENRRequiredPermission, "EntityType": obj.ruleTargetType, "EntitySubType": obj.ENRSubType
+            "RequiredPermission": obj.ENRRequiredPermission,
+            "EntityType": obj.ruleTargetType,
+            "EntitySubType": obj.ENRSubType
         },
         "RequestInfo": "Amazon." + obj.AssemblyName + ".Model." + obj.ENRRequestName + ", AWSSDK." + obj.AssemblyName,
         "PaginationMarker": obj.ENRPaginationMarker,
@@ -51,7 +71,8 @@ function handleSubmit(event) {
             "EntitiesCollection": "AWS" + obj.ruleTargetType + "Entity",
             "ShouldEnrichBaseEntity": document.getElementById("ShouldEnrichBaseEntity").checked,
             "IsCronTriggered": document.getElementById("IsCronTriggered").checked,
-            "cronExpression": obj.cronExpression + "/30 * * * ? *",
+            "CronExpression": obj.cronExpression + "/30 * * * ? *",
+            "ContinueWith": ContinueWith,
         }, "IndexerConfig": {
             "ShouldIndexEntity": document.getElementById("ShouldIndexEntity").checked,
         }, "ApiConfig": {

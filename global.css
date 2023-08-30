@@ -1,14 +1,34 @@
 .form-center {
-    display:flex;
+    display: flex;
     justify-content: center;
 }
+
 #code {
-    font-family: Consolas,monospace;
+    font-family: Consolas, monospace;
 }
 
-#enrichment, #cron  {
+#enrichment, #cron {
     display: none;
 }
-#region ,#advcron{
+
+#region, #advcron {
     display: block;
+}
+
+li:hover {
+    text-decoration: line-through;
+}
+
+li {
+    display: inline;
+    padding: 0 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
