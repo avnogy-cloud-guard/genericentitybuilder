@@ -1,5 +1,5 @@
 const form = document.querySelector('form');
-
+let EntityName = ""
 form.querySelectorAll("input").forEach(input => {
     input.addEventListener("input", handleSubmit);
     input.addEventListener("change", handleSubmit);
@@ -52,6 +52,8 @@ function handleSubmit() {
     const data = new FormData(form);
     let obj = Object.fromEntries(data.entries());
 
+    EntityName = "AWS" + obj.ruleTargetType
+
     let ContinueWith = Array.from(document.querySelectorAll('#ContinueWithList li')).map(function (li) {
         return li.textContent;
     });
@@ -82,9 +84,8 @@ function handleSubmit() {
         "PropertiesToRemoveFromExternalObject": obj.ENRPropertiesToRemoveFromExternalObject
     } : undefined;
 
-
     let json = {
-        "Entity": "AWS" + obj.ruleTargetType, "ComplianceConfig": {
+        "Entity": EntityName, "ComplianceConfig": {
             "RuleTargetType": obj.ruleTargetType,
             "Vendor": "AWS",
             "IsRulesEngineBaseEntity": document.getElementById("IsRulesEngineBaseEntity").checked,
@@ -119,16 +120,16 @@ function handleSubmit() {
             "BasicEnrichmentConfig": BasicEnrichmentConfig,
         }
     };
-    let dump = JSON.stringify(json, replacer, 2);
-    document.getElementById("result").innerText = dump;
-    return JSON.parse(dump);
+    json = JSON.stringify(json, replacer, 2);
+    document.getElementById("result").innerText = json;
+    return json;
 }
 
 function saveTextAsFile() {
     var textToWrite = handleSubmit()
     var textFileAsBlob = new Blob([textToWrite], {type: 'text/plain'});
 
-    var fileNameToSaveAs = textToWrite.Entity + ".json";
+    var fileNameToSaveAs = EntityName + ".json";
 
     var downloadLink = document.createElement("a");
     downloadLink.download = fileNameToSaveAs;
