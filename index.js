@@ -1,4 +1,10 @@
-const result_elem = document.getElementById("result");
+const form = document.querySelector('form');
+
+form.querySelectorAll("input").forEach(input => {
+    input.addEventListener("input", handleSubmit);
+    input.addEventListener("change", handleSubmit);
+    input.addEventListener("blur", handleSubmit);
+});
 
 function show(who, obj, rev) {
     if ((rev && !obj.checked) || !rev && obj.checked) {
@@ -9,18 +15,6 @@ function show(who, obj, rev) {
     }
 }
 
-
-function isEmpty(value) {
-    return (typeof value === undefined || value === "" || value === '' || value == null || value === {} || value === [] || value.length === 0)
-}
-
-function replacer(key, value) {
-    if (isEmpty(value)) {
-        return undefined;
-    }
-    return value;
-}
-
 function addAnswer() {
     let input = document.getElementById('ContinueWithInput');
     let text = input.value;
@@ -29,27 +23,16 @@ function addAnswer() {
         li.textContent = text;
         li.addEventListener('click', function () {
             this.parentNode.removeChild(this);
+            handleSubmit()
         });
         document.getElementById('ContinueWithList').appendChild(li);
         input.value = '';
     }
+    handleSubmit()
 }
 
-function formatArray(input) {
-    try {
-        const parsedInput = JSON.parse(input);
-        if (Array.isArray(parsedInput) && typeof parsedInput[0] === 'string') {
-            return parsedInput;
-        }
-    } catch (e) {
-    }
-    input = input.replace(/[\[\]"]/g, '');
-    return [input];
-}
-
-function handleSubmit(event) {
-    event.preventDefault();
-    const data = new FormData(event.target);
+function handleSubmit() {
+    const data = new FormData(form);
     let obj = Object.fromEntries(data.entries());
 
     let ContinueWith = Array.from(document.querySelectorAll('#ContinueWithList li')).map(function (li) {
@@ -110,8 +93,28 @@ function handleSubmit(event) {
         }
     };
 
-    result_elem.innerText = JSON.stringify(json, replacer, 2);
+    document.getElementById("result").innerText = JSON.stringify(json, replacer, 2);
 }
 
-const form = document.querySelector('form');
-form.addEventListener('submit', handleSubmit);
+function isEmpty(value) {
+    return (typeof value === undefined || value === "" || value === '' || value == null || value === {} || value === [] || value.length === 0)
+}
+
+function replacer(key, value) {
+    if (isEmpty(value)) {
+        return undefined;
+    }
+    return value;
+}
+
+function formatArray(input) {
+    try {
+        const parsedInput = JSON.parse(input);
+        if (Array.isArray(parsedInput) && typeof parsedInput[0] === 'string') {
+            return parsedInput;
+        }
+    } catch (e) {
+    }
+    input = input.replace(/[\[\]"]/g, '');
+    return [input];
+}

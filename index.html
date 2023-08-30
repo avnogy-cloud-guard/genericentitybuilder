@@ -8,8 +8,11 @@
 
 </head>
 <body>
-<div class="form-center">
-    <form>
+<div class="form-center grid-container">
+    <div class="grid-item"></div>
+
+    <pre class="grid-item"><code id="result">Ready..</code></pre>
+    <form id="form" class="grid-item">
         <label for="ruleTargetType">ruleTargetType</label>
         <input id="ruleTargetType" name="ruleTargetType"/>
         <div></div>
@@ -35,8 +38,8 @@
         <hr class="dashed">
 
         <label for="ContinueWithInput">ContinueWith</label>
-        <input type="text" id="ContinueWithInput">
-        <button type="button" id="addButton" onclick="addAnswer()">+</button>
+        <input id="ContinueWithInput" type="text">
+        <button id="addButton" onclick="addAnswer()" type="button">+</button>
         <ul id="ContinueWithList"></ul>
         <hr class="dashed">
 
@@ -129,11 +132,9 @@
 
         <hr class="dashed">
 
-        <button type="submit">Submit</button>
-
-
-        <pre><code id="result">{}</code></pre>
     </form>
+    <div class="grid-item"></div>
+
 </div>
 </body>
 </html>
