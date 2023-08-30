@@ -15,7 +15,7 @@ function show(who, obj, rev) {
     }
 }
 
-function addAnswer() {
+function addContinueWithAnswer() {
     let input = document.getElementById('ContinueWithInput');
     let text = input.value;
     if (text !== '') {
@@ -31,6 +31,23 @@ function addAnswer() {
     handleSubmit()
 }
 
+function addRequestParametersAnswer() {
+    let nameInput = document.getElementById('RequestParametersName');
+    let valueInput = document.getElementById('RequestParametersValue');
+    if (nameInput.value !== '' && valueInput.value !== '') {
+        let li = document.createElement('li');
+        li.textContent = "{\"" + nameInput.value + "\"" + ':' + "\"" + valueInput.value + "\"}";
+        li.addEventListener('click', function () {
+            this.parentNode.removeChild(this);
+            handleSubmit()
+        });
+        document.getElementById('RequestParametersList').appendChild(li);
+        nameInput.value = '';
+        valueInput.value = '';
+    }
+    handleSubmit()
+}
+
 function handleSubmit() {
     const data = new FormData(form);
     let obj = Object.fromEntries(data.entries());
@@ -38,6 +55,17 @@ function handleSubmit() {
     let ContinueWith = Array.from(document.querySelectorAll('#ContinueWithList li')).map(function (li) {
         return li.textContent;
     });
+
+    let RequestParameters = Array.from(document.querySelectorAll('#RequestParametersList li')).map(function (li) {
+        let val = li.textContent.replace(/[\{\}"]/g, '').split(':')
+        return {
+            "ParameterName": val[0], "ParameterValue": val[1]
+        };
+    });
+
+    if (obj.MaxPages !== '') {
+        RequestParameters.push({"ParameterName": "MaxPages", "ParameterValue": obj.MaxPages})
+    }
 
     let BasicEnrichmentConfig = (document.getElementById("ShouldEnrichBaseEntity").checked) ? {
         "ApiCall": obj.ENRRequestName,
@@ -85,15 +113,15 @@ function handleSubmit() {
             "RequiredPermissionConfig": {
                 "RequiredPermission": obj.RequiredPermission, "EntityType": obj.ruleTargetType
             },
-            "RequestParameters": obj.RequestParameters,
+            "RequestParameters": RequestParameters,
             "PaginationMarker": obj.PaginationMarker,
-            "MaxPages": obj.MaxPages,
             "IsExternalIdGenerated": document.getElementById("IsExternalIdGenerated").checked,
             "BasicEnrichmentConfig": BasicEnrichmentConfig,
         }
     };
-    document.getElementById("result").innerText = JSON.stringify(json, replacer, 2);
-    return json;
+    let dump = JSON.stringify(json, replacer, 2);
+    document.getElementById("result").innerText = dump;
+    return JSON.parse(dump);
 }
 
 function saveTextAsFile() {
