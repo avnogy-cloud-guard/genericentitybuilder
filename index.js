@@ -35,6 +35,18 @@ function addAnswer() {
     }
 }
 
+function formatArray(input) {
+    try {
+        const parsedInput = JSON.parse(input);
+        if (Array.isArray(parsedInput) && typeof parsedInput[0] === 'string') {
+            return parsedInput;
+        }
+    } catch (e) {
+    }
+    input = input.replace(/[\[\]"]/g, '');
+    return [input];
+}
+
 function handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
@@ -76,7 +88,7 @@ function handleSubmit(event) {
         }, "IndexerConfig": {
             "ShouldIndexEntity": document.getElementById("ShouldIndexEntity").checked,
         }, "ApiConfig": {
-            "LookupEventSources": obj.LookupEventSources,
+            "LookupEventSources": formatArray(obj.LookupEventSources),
             "IsRegionLess": document.getElementById("IsRegionLess").checked,
             "ExcludedRegions": obj.ExcludedRegions,
             "ResponsePropertyToUse": obj.ResponsePropertyToUse,
