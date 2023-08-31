@@ -109,8 +109,8 @@ function handleSubmit() {
             "ExternalEntityTagsProperty": obj.ExternalEntityTagsProperty,
             "ConfigAssemblyInfo": "Amazon." + obj.AssemblyName + ".Amazon" + obj.AssemblyName + "Config, AWSSDK." + obj.AssemblyName,
             "ClientAssemblyInfo": "Amazon." + obj.AssemblyName + ".Amazon" + obj.AssemblyName + "Client,  AWSSDK." + obj.AssemblyName,
-            "RequestInfo": "Amazon." + obj.AssemblyName + ".Model." + obj.RequestName + ", AWSSDK." + obj.AssemblyName,
-            "ApiCall": obj.RequestName,
+            "RequestInfo": "Amazon." + obj.AssemblyName + ".Model." + "placeholder" + ", AWSSDK." + obj.AssemblyName,
+            "ApiCall": obj.ApiCall,
             "RequiredPermissionConfig": {
                 "RequiredPermission": obj.RequiredPermission, "EntityType": obj.ruleTargetType
             },
