@@ -102,7 +102,7 @@ function handleSubmit() {
         }, "ApiConfig": {
             "LookupEventSources": formatArray(obj.LookupEventSources),
             "IsRegionLess": document.getElementById("IsRegionLess").checked,
-            "ExcludedRegions": obj.ExcludedRegions,
+            "ExcludedRegions": formatArray(obj.ExcludedRegions),
             "ResponsePropertyToUse": obj.ResponsePropertyToUse,
             "ExternalEntityIdProperty": obj.ExternalEntityIdProperty,
             "ExternalEntityNameProperty": obj.ExternalEntityNameProperty,
