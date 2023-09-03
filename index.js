@@ -55,6 +55,8 @@ function handleSubmit() {
     let obj = Object.fromEntries(data.entries());
     const stripAsyncOrRequest = str => str.replace(/(async|request)$/i, '');
     const stripAwsOrEntity = str => str.replace(/^(Aws)/i, '').replace(/(Entity)$/i, '');
+    const stripJson = str => str.replace(/(.json)$/i, '');
+
     if (document.getElementById("PropertiesToRemoveFromExternalObject").disabled)
     {
         obj.PropertiesToRemoveFromExternalObject = ""
@@ -69,7 +71,7 @@ function handleSubmit() {
     EntityName = "Aws" + obj.ruleTargetType
 
     let ContinueWith = Array.from(document.querySelectorAll('#ContinueWithList li')).map(function (li) {
-        return li.textContent;
+        return stripJson(li.textContent);
     });
 
     let RequestParameters = Array.from(document.querySelectorAll('#RequestParametersList li')).map(function (li) {
