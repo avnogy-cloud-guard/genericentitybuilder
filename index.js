@@ -89,7 +89,7 @@ function handleSubmit() {
         "RequestParameters": obj.ENRRequestParameters,
         "RequiredPermissionConfig": {
             "RequiredPermission": obj.ENRRequiredPermission,
-            "EntityType": EntityName,
+            "EntityType":  obj.ruleTargetType,
             "EntitySubType": obj.ENRSubType
         },
         "RequestInfo": "Amazon." + obj.AssemblyName + ".Model." + stripAsyncOrRequest(obj.ENRApiCall) + "Request, AWSSDK." + obj.AssemblyName,
@@ -130,7 +130,8 @@ function handleSubmit() {
             "RequestInfo": "Amazon." + obj.AssemblyName + ".Model." + stripAsyncOrRequest(obj.ApiCall) + "Request, AWSSDK." + obj.AssemblyName,
             "ApiCall": stripAsyncOrRequest(obj.ApiCall) + "Async",
             "RequiredPermissionConfig": {
-                "RequiredPermission": obj.RequiredPermission, "EntityType": obj.ruleTargetType
+                "RequiredPermission": obj.RequiredPermission,
+                "EntityType": obj.ruleTargetType
             },
             "RequestParameters": RequestParameters,
             "PaginationMarker": obj.PaginationMarker,
