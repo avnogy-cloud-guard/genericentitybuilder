@@ -87,7 +87,7 @@ function handleSubmit() {
 
 
     let BasicEnrichmentConfig = (document.getElementById("ShouldEnrichBaseEntity").checked) ? {
-        "ApiCall": obj.ENRRequestName,
+        "ApiCall": stripAsyncOrRequest(obj.ENRApiCall)+"Async",
         "RequestParameters": obj.ENRRequestParameters,
         "RequiredPermissionConfig": {
             "RequiredPermission": obj.ENRRequiredPermission,
