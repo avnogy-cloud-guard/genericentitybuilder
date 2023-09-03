@@ -1,10 +1,12 @@
 const form = document.querySelector('form');
 let EntityName = ""
+
 form.querySelectorAll("input").forEach(input => {
     input.addEventListener("input", handleSubmit);
     input.addEventListener("change", handleSubmit);
     input.addEventListener("blur", handleSubmit);
 });
+
 
 function show(who, obj, rev) {
     if ((rev && !obj.checked) || !rev && obj.checked) {
@@ -53,6 +55,14 @@ function handleSubmit() {
     let obj = Object.fromEntries(data.entries());
     const stripAsyncOrRequest = str => str.replace(/(async|request)$/i, '');
     const stripAwsOrEntity = str => str.replace(/^(Aws)/i, '').replace(/(Entity)$/i, '');
+    if (document.getElementById("PropertiesToRemoveFromExternalObject").disabled)
+    {
+        obj.PropertiesToRemoveFromExternalObject = ""
+    }
+    if (document.getElementById("ENRPropertiesToRemoveFromExternalObject").disabled)
+    {
+        obj.ENRPropertiesToRemoveFromExternalObject = ""
+    }
 
     obj.ruleTargetType = stripAwsOrEntity(obj.ruleTargetType)
 
@@ -86,7 +96,7 @@ function handleSubmit() {
         "PaginationMarker": obj.ENRPaginationMarker,
         "RequestParametersFromBaseEntity": obj.ENRRequestParametersFromBaseEntity,
         "ResponsePropertyToUse": obj.ENRResponsePropertyToUse,
-        "PropertiesToRemoveFromExternalObject": obj.ENRPropertiesToRemoveFromExternalObject
+        "PropertiesToRemoveFromExternalObject": formatArray(obj.ENRPropertiesToRemoveFromExternalObject)
     } : undefined;
 
 
@@ -111,6 +121,7 @@ function handleSubmit() {
             "IsRegionLess": document.getElementById("IsRegionLess").checked,
             "ExcludedRegions": formatArray(obj.ExcludedRegions),
             "ResponsePropertyToUse": obj.ResponsePropertyToUse,
+            "PropertiesToRemoveFromExternalObject": formatArray(obj.PropertiesToRemoveFromExternalObject),
             "ExternalEntityIdProperty": obj.ExternalEntityIdProperty,
             "ExternalEntityNameProperty": obj.ExternalEntityNameProperty,
             "ExternalEntityTagsProperty": obj.ExternalEntityTagsProperty,
@@ -184,3 +195,21 @@ function formatArray(input) {
     input = input.replace(/[\[\]"]/g, '');
     return [input];
 }
+
+
+
+function mutuallyExclusive(id1,id2) {
+    let input1 = document.getElementById(id1);
+    let input2 = document.getElementById(id2);
+
+    input1.addEventListener('input', function() {
+        input2.disabled = !!input1.value;
+    });
+
+    input2.addEventListener('input', function() {
+        input1.disabled = !!input2.value;
+    });
+}
+
+mutuallyExclusive("ResponsePropertyToUse","PropertiesToRemoveFromExternalObject")
+mutuallyExclusive("ENRResponsePropertyToUse","ENRPropertiesToRemoveFromExternalObject")
