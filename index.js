@@ -51,8 +51,12 @@ function addRequestParametersAnswer() {
 function handleSubmit() {
     const data = new FormData(form);
     let obj = Object.fromEntries(data.entries());
+    const stripAsyncOrRequest = str => str.replace(/(async|request)$/i, '');
+    const stripAwsOrEntity = str => str.replace(/^(Aws)/i, '').replace(/(Entity)$/i, '');
 
-    EntityName = "AWS" + obj.ruleTargetType
+    obj.ruleTargetType = stripAwsOrEntity(obj.ruleTargetType)
+
+    EntityName = "Aws" + obj.ruleTargetType
 
     let ContinueWith = Array.from(document.querySelectorAll('#ContinueWithList li')).map(function (li) {
         return li.textContent;
@@ -69,20 +73,23 @@ function handleSubmit() {
         RequestParameters.push({"ParameterName": "MaxPages", "ParameterValue": obj.MaxPages})
     }
 
+
     let BasicEnrichmentConfig = (document.getElementById("ShouldEnrichBaseEntity").checked) ? {
         "ApiCall": obj.ENRRequestName,
         "RequestParameters": obj.ENRRequestParameters,
         "RequiredPermissionConfig": {
             "RequiredPermission": obj.ENRRequiredPermission,
-            "EntityType": obj.ruleTargetType,
+            "EntityType": EntityName,
             "EntitySubType": obj.ENRSubType
         },
-        "RequestInfo": "Amazon." + obj.AssemblyName + ".Model." + obj.ENRRequestName + ", AWSSDK." + obj.AssemblyName,
+        "RequestInfo": "Amazon." + obj.AssemblyName + ".Model." + stripAsyncOrRequest(obj.ENRApiCall) + "Request, AWSSDK." + obj.AssemblyName,
         "PaginationMarker": obj.ENRPaginationMarker,
         "RequestParametersFromBaseEntity": obj.ENRRequestParametersFromBaseEntity,
         "ResponsePropertyToUse": obj.ENRResponsePropertyToUse,
         "PropertiesToRemoveFromExternalObject": obj.ENRPropertiesToRemoveFromExternalObject
     } : undefined;
+
+
 
     let json = {
         "Entity": EntityName, "ComplianceConfig": {
@@ -92,10 +99,10 @@ function handleSubmit() {
             "AdditionalCollectionsToExposeInRE": obj.AdditionalCollectionsToExposeInRE,
             "ServiceNameInVendor": obj.ruleTargetType
         }, "FetcherConfig": {
-            "EntitiesCollection": "AWS" + obj.ruleTargetType + "Entity",
+            "EntitiesCollection": EntityName + "Entity",
             "ShouldEnrichBaseEntity": document.getElementById("ShouldEnrichBaseEntity").checked,
             "IsCronTriggered": document.getElementById("IsCronTriggered").checked,
-            "CronExpression": obj.cronExpression + "/30 * * * ? *",
+            "CronExpression": obj.CronExpression + "/30 * * * ? *",
             "ContinueWith": ContinueWith,
         }, "IndexerConfig": {
             "ShouldIndexEntity": document.getElementById("ShouldIndexEntity").checked,
@@ -109,8 +116,8 @@ function handleSubmit() {
             "ExternalEntityTagsProperty": obj.ExternalEntityTagsProperty,
             "ConfigAssemblyInfo": "Amazon." + obj.AssemblyName + ".Amazon" + obj.AssemblyName + "Config, AWSSDK." + obj.AssemblyName,
             "ClientAssemblyInfo": "Amazon." + obj.AssemblyName + ".Amazon" + obj.AssemblyName + "Client,  AWSSDK." + obj.AssemblyName,
-            "RequestInfo": "Amazon." + obj.AssemblyName + ".Model." + "placeholder" + ", AWSSDK." + obj.AssemblyName,
-            "ApiCall": obj.ApiCall,
+            "RequestInfo": "Amazon." + obj.AssemblyName + ".Model." + stripAsyncOrRequest(obj.ApiCall) + "Request, AWSSDK." + obj.AssemblyName,
+            "ApiCall": stripAsyncOrRequest(obj.ApiCall) + "Async",
             "RequiredPermissionConfig": {
                 "RequiredPermission": obj.RequiredPermission, "EntityType": obj.ruleTargetType
             },
@@ -151,8 +158,13 @@ function saveTextAsFile() {
 }
 
 function isEmpty(value) {
-    return (typeof value === undefined || value === "" || value === '' || value == null || value === {} || value === [] || value.length === 0)
+    if (Array.isArray(value)) {
+        if (value.length === 0 || value.every(item => item === '') ) return true
+    }
+    return (value === undefined || value === "" || value == null ||
+        (typeof value === 'object' && Object.keys(value).length === 0));
 }
+
 
 function replacer(key, value) {
     if (isEmpty(value)) {
