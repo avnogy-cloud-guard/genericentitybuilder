@@ -41,11 +41,17 @@ pre {
 
 .grid-container {
     display: grid;
-    grid-template-columns: auto 40% 50% auto ;
+    grid-template-columns: auto 40% 50% auto;
     grid-template-rows: auto auto;
     padding: 10px;
     width: 100%;
 }
+
 .grid-item {
     padding: 20px;
+}
+
+#button-container {
+    display: grid;
+    grid-template-columns: auto auto;
 }
