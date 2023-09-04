@@ -88,6 +88,8 @@ function handleSubmit() {
         "PropertiesToRemoveFromExternalObject": formatArray(obj.ENRPropertiesToRemoveFromExternalObject)
     } : undefined;
 
+    if (!isEmpty(obj.CronExpression)) obj.CronExpression = obj.CronExpression + "/30 * * * ? *"
+    if (!document.getElementById("IsCronTriggered").checked) obj.CronExpression = ""
 
     let json = {
         "Entity": EntityName, "ComplianceConfig": {
@@ -100,7 +102,7 @@ function handleSubmit() {
             "EntitiesCollection": EntityName + "Entity",
             "ShouldEnrichBaseEntity": document.getElementById("ShouldEnrichBaseEntity").checked,
             "IsCronTriggered": document.getElementById("IsCronTriggered").checked,
-            "CronExpression": obj.CronExpression + "/30 * * * ? *",
+            "CronExpression": obj.CronExpression,
             "ContinueWith": ContinueWith,
         }, "IndexerConfig": {
             "ShouldIndexEntity": document.getElementById("ShouldIndexEntity").checked,
