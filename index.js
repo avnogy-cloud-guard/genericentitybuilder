@@ -74,7 +74,7 @@ function handleSubmit() {
         "PropertiesToRemoveFromExternalObject": formatArray(obj.ENRPropertiesToRemoveFromExternalObject)
     } : undefined;
 
-    if (!isEmpty(obj.CronExpression)) obj.CronExpression = obj.CronExpression + "/30 * * * ? *"
+    if (!isNaN(obj.CronExpression)) obj.CronExpression = obj.CronExpression + "/30 * * * ? *"
     if (!document.getElementById("IsCronTriggered").checked) obj.CronExpression = ""
 
     let json = {
@@ -119,8 +119,8 @@ function handleSubmit() {
     return json;
 }
 
-const stripAsyncOrRequest = str => str.replace(/(async|request)$/i, '');
-const stripAwsOrEntity = str => str.replace(/^(Aws)/i, '').replace(/(Entity)$/i, '');
+const stripAsyncOrRequest = input => input.toString().replace(/(async|request)$/i, '');
+const stripAwsOrEntity = input => input.toString().replace(/^(Aws)(.*)(Entity)$/i, '\$2');
 
 function saveTextAsFile() {
     var textToWrite = handleSubmit()
