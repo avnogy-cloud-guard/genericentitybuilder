@@ -183,7 +183,7 @@ function formatArray(input) {
     if (Array.isArray(input) && typeof input[0] === 'string') {
         return input;
     } else {
-        input = input.replace(/[\[\] "]/g, '').split(',');
+        input = input.toString().replace(/[\[\] "]/g, '').split(',');
 
         return input;
     }
