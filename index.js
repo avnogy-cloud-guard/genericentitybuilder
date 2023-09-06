@@ -50,9 +50,9 @@ function handleSubmit() {
         obj.ENRPropertiesToRemoveFromExternalObject = ""
     }
 
-    obj.ruleTargetType = stripAwsOrEntity(obj.ruleTargetType)
+    obj.RuleTargetType = stripAwsOrEntity(obj.RuleTargetType)
 
-    EntityName = "Aws" + obj.ruleTargetType
+    EntityName = "Aws" + obj.RuleTargetType
 
 
     let RequestParameters = Array.from(document.querySelectorAll('#RequestParametersList li')).map(function (li) {
@@ -64,7 +64,7 @@ function handleSubmit() {
         "RequestParameters": obj.ENRRequestParameters,
         "RequiredPermissionConfig": {
             "RequiredPermission": obj.ENRRequiredPermission,
-            "EntityType": obj.ruleTargetType,
+            "EntityType": obj.RuleTargetType,
             "EntitySubType": obj.ENRSubType
         },
         "RequestInfo": "Amazon." + obj.AssemblyName + ".Model." + stripAsyncOrRequest(obj.ENRApiCall) + "Request, AWSSDK." + obj.AssemblyName,
@@ -79,11 +79,11 @@ function handleSubmit() {
 
     let json = {
         "Entity": EntityName, "ComplianceConfig": {
-            "RuleTargetType": obj.ruleTargetType,
+            "RuleTargetType": obj.RuleTargetType,
             "Vendor": "AWS",
             "IsRulesEngineBaseEntity": document.getElementById("IsRulesEngineBaseEntity").checked,
             "AdditionalCollectionsToExposeInRE": obj.AdditionalCollectionsToExposeInRE,
-            "ServiceNameInVendor": obj.ruleTargetType
+            "ServiceNameInVendor": obj.RuleTargetType
         }, "FetcherConfig": {
             "EntitiesCollection": EntityName + "Entity",
             "ShouldEnrichBaseEntity": document.getElementById("ShouldEnrichBaseEntity").checked,
@@ -106,7 +106,7 @@ function handleSubmit() {
             "RequestInfo": "Amazon." + obj.AssemblyName + ".Model." + stripAsyncOrRequest(obj.ApiCall) + "Request, AWSSDK." + obj.AssemblyName,
             "ApiCall": stripAsyncOrRequest(obj.ApiCall) + "Async",
             "RequiredPermissionConfig": {
-                "RequiredPermission": obj.RequiredPermission, "EntityType": obj.ruleTargetType
+                "RequiredPermission": obj.RequiredPermission, "EntityType": obj.RuleTargetType
             },
             "RequestParameters": RequestParameters,
             "PaginationMarker": obj.PaginationMarker,
