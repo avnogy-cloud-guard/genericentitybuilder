@@ -19,10 +19,10 @@ function show(who, obj, rev) {
 
 function addContinueWithAnswer() {
     let input = document.getElementById('ContinueWithInput');
-    let text = input.value;
+    let text = input.value.trim();
     if (text !== '') {
         let li = document.createElement('li');
-        li.textContent = text;
+        li.textContent = formatInput(text).replace(/(.json)$/i, '');
         li.addEventListener('click', function () {
             this.parentNode.removeChild(this);
             handleSubmit()
@@ -36,10 +36,13 @@ function addContinueWithAnswer() {
 function addRequestParametersAnswer() {
     let nameInput = document.getElementById('RequestParametersName');
     let valueInput = document.getElementById('RequestParametersValue');
-    if (nameInput.value !== '' && valueInput.value !== '') {
+    let name = formatInput(nameInput.value)
+    let value = formatInput(valueInput.value)
+    if (name !== '' && valueInput.value !== '') {
         let li = document.createElement('li');
-        li.textContent = "{\"" + nameInput.value + "\"" + ':' + "\"" + valueInput.value + "\"}";
-        li.addEventListener('click', function () {
+        li.attributes.val = {"ParameterName": name, "ParameterValue": value}
+        li.textContent = "{\"" + name + "\"" + ':' + "\"" + value + "\"}";
+        li.addEventListener('click', function (event) {
             this.parentNode.removeChild(this);
             handleSubmit()
         });
@@ -53,7 +56,9 @@ function addRequestParametersAnswer() {
 function handleSubmit() {
     const data = new FormData(form);
     let obj = Object.fromEntries(data.entries());
-
+    for (let key in obj) {
+        obj[key] = formatInput(obj[key]);
+    }
     if (document.getElementById("PropertiesToRemoveFromExternalObject").disabled) {
         obj.PropertiesToRemoveFromExternalObject = ""
     }
@@ -65,13 +70,13 @@ function handleSubmit() {
 
     EntityName = "Aws" + obj.ruleTargetType
 
-    let ContinueWith = getContinueWith()
+    let ContinueWith = Array.from(document.querySelectorAll('#ContinueWithList li')).map(function (li) {
+        return li.textContent;
+    });
 
-    let RequestParameters = getRequestParameters()
-
-    if (obj.MaxPages !== '') {
-        RequestParameters.push({"ParameterName": "MaxPages", "ParameterValue": parseInt(obj.MaxPages)})
-    }
+    let RequestParameters = Array.from(document.querySelectorAll('#RequestParametersList li')).map(function (li) {
+        return li.attributes.val
+    });
 
     let BasicEnrichmentConfig = (document.getElementById("ShouldEnrichBaseEntity").checked) ? {
         "ApiCall": stripAsyncOrRequest(obj.ENRApiCall) + "Async",
@@ -135,7 +140,6 @@ function handleSubmit() {
 
 const stripAsyncOrRequest = str => str.replace(/(async|request)$/i, '');
 const stripAwsOrEntity = str => str.replace(/^(Aws)/i, '').replace(/(Entity)$/i, '');
-const stripJson = str => str.replace(/(.json)$/i, '');
 
 function saveTextAsFile() {
     var textToWrite = handleSubmit()
@@ -176,16 +180,32 @@ function replacer(key, value) {
     return value;
 }
 
-function formatArray(input) {
+function formatInput(input) {
+    if (isEmpty(input)) return ''
+    let trimmedInputValue = input.trim();
+    let jsonValue;
     try {
-        const parsedInput = JSON.parse(input);
-        if (Array.isArray(parsedInput) && typeof parsedInput[0] === 'string') {
-            return parsedInput;
-        }
+        jsonValue = JSON.parse(trimmedInputValue);
     } catch (e) {
+        if (!isNaN(trimmedInputValue)) {
+            jsonValue = Number(trimmedInputValue);
+        } else {
+            jsonValue = trimmedInputValue;
+        }
     }
-    input = input.replace(/[\[\]"]/g, '');
-    return [input];
+    return jsonValue
+}
+
+function formatArray(input) {
+    if (isEmpty(input)) return ''
+
+    if (Array.isArray(input) && typeof input[0] === 'string') {
+        return input;
+    } else {
+        input = input.replace(/[\[\] "]/g, '').split(',');
+
+        return input;
+    }
 }
 
 function mutuallyExclusive(id1, id2) {
@@ -204,20 +224,6 @@ function mutuallyExclusive(id1, id2) {
 mutuallyExclusive("ResponsePropertyToUse", "PropertiesToRemoveFromExternalObject")
 mutuallyExclusive("ENRResponsePropertyToUse", "ENRPropertiesToRemoveFromExternalObject")
 
-function getContinueWith() {
-    return Array.from(document.querySelectorAll('#ContinueWithList li')).map(function (li) {
-        return stripJson(li.textContent);
-    });
-}
-
-function getRequestParameters() {
-    return Array.from(document.querySelectorAll('#RequestParametersList li')).map(function (li) {
-        let val = li.textContent.replace(/[{}"]/g, '').split(':')
-        return {
-            "ParameterName": val[0], "ParameterValue": val[1]
-        };
-    });
-}
 
 function saveToLocalStorage() {
     for (let i = 0; i < form.elements.length; i++) {
