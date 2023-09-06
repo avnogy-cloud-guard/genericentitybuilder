@@ -17,22 +17,6 @@ function show(who, obj, rev) {
     }
 }
 
-function addContinueWithAnswer() {
-    let input = document.getElementById('ContinueWithInput');
-    let text = input.value.trim();
-    if (text !== '') {
-        let li = document.createElement('li');
-        li.textContent = formatInput(text).replace(/(.json)$/i, '');
-        li.addEventListener('click', function () {
-            this.parentNode.removeChild(this);
-            handleSubmit()
-        });
-        document.getElementById('ContinueWithList').appendChild(li);
-        input.value = '';
-    }
-    handleSubmit()
-}
-
 function addRequestParametersAnswer() {
     let nameInput = document.getElementById('RequestParametersName');
     let valueInput = document.getElementById('RequestParametersValue');
@@ -70,9 +54,6 @@ function handleSubmit() {
 
     EntityName = "Aws" + obj.ruleTargetType
 
-    let ContinueWith = Array.from(document.querySelectorAll('#ContinueWithList li')).map(function (li) {
-        return li.textContent;
-    });
 
     let RequestParameters = Array.from(document.querySelectorAll('#RequestParametersList li')).map(function (li) {
         return li.attributes.val
@@ -108,7 +89,7 @@ function handleSubmit() {
             "ShouldEnrichBaseEntity": document.getElementById("ShouldEnrichBaseEntity").checked,
             "IsCronTriggered": document.getElementById("IsCronTriggered").checked,
             "CronExpression": obj.CronExpression,
-            "ContinueWith": ContinueWith,
+            "ContinueWith": formatArray(obj.ContinueWith)
         }, "IndexerConfig": {
             "ShouldIndexEntity": document.getElementById("ShouldIndexEntity").checked,
         }, "ApiConfig": {
