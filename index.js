@@ -25,14 +25,15 @@ function removeInputPair(elem) {
     handleSubmit()
 }
 
-function addRequestParametersAnswer() {
+function addRequestParametersAnswer(name = '', value = '') {
+    console.log(name, value)
     const requestContainer = document.getElementById('request-container');
     const newRequestPair = document.createElement('div');
     newRequestPair.classList.add('request-pair');
     newRequestPair.classList.add('input-container');
     newRequestPair.innerHTML = `
-         <input type="text" name="name" placeholder="Name" oninput="handleSubmit()" onblur="handleSubmit()">
-         <input type="text" name="value" placeholder="Value" oninput="handleSubmit()" onblur="handleSubmit()">
+         <input type="text" name="name" placeholder="Name" oninput="handleSubmit()" onblur="handleSubmit()" value="${name}">
+         <input type="text" name="value" placeholder="Value" oninput="handleSubmit()" onblur="handleSubmit()" value="${value}">
          <button type="button" class="request-button" onclick="removeInputPair(this)">-</button>
       `;
     requestContainer.appendChild(newRequestPair);
@@ -224,6 +225,16 @@ function saveToLocalStorage() {
     localStorage.setItem("IsRegionLess", document.getElementById("IsRegionLess").checked)
     localStorage.setItem("IsExternalIdGenerated", document.getElementById("IsExternalIdGenerated").checked)
     localStorage.setItem("ShouldEnrichBaseEntity", document.getElementById("ShouldEnrichBaseEntity").checked)
+    let params = Array.from(document.getElementsByClassName('request-pair')).map((pair) => {
+        let name = formatInput(pair.querySelector('input[name="name"]').value)
+        let value = formatInput(pair.querySelector('input[name="value"]').value)
+        if (name !== '' || value !== '') {
+            return {
+                "ParameterName": name, "ParameterValue": value
+            };
+        }
+    }).filter((item) => !isEmpty(item));
+    localStorage.setItem("params", JSON.stringify(params))
 }
 
 function loadFromLocalStorage() {
@@ -246,8 +257,18 @@ function loadFromLocalStorage() {
     forceClick("IsRegionLess")
     forceClick("IsExternalIdGenerated")
     forceClick("ShouldEnrichBaseEntity")
-    handleSubmit()
 
+    form.querySelectorAll(".request-pair").forEach(pair => {
+        pair.remove(self)
+    });
+
+    const params = JSON.parse(localStorage.getItem("params"))
+    for (let i = 0; i < params.length; i++) {
+
+        const current = params[i]
+        addRequestParametersAnswer(current["ParameterName"], current["ParameterValue"])
+    }
+    handleSubmit()
 }
 
 mutuallyExclusive("ResponsePropertyToUse", "PropertiesToRemoveFromExternalObject")
