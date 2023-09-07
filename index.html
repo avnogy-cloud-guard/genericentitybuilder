@@ -97,9 +97,9 @@
             <input id="RequiredPermission" name="RequiredPermission" type="text"/>
         </div>
         <hr class="dashed">
-        <div class="input-container" id="request-container">
+        <div class="input-container request-container" id="request-container">
             <label>RequestParameters</label>
-            <button class="request-button" id="addRequestParametersButton" onclick="addRequestParametersAnswer()"
+            <button class="request-button" id="addRequestParametersButton" onclick="addRequestParametersAnswer(this)"
                     type="button">+
             </button>
         </div>
@@ -137,6 +137,14 @@
                 <label for="ENRRequestParameters">RequestParameters</label>
                 <input id="ENRRequestParameters" name="ENRRequestParameters" type="text"/>
             </div>
+            <div class="input-container request-container" id="enr-request-container">
+                <label>RequestParameters</label>
+                <button class="request-button" id="enrAddRequestParametersButton"
+                        onclick="addRequestParametersAnswer(this)"
+                        type="button">+
+                </button>
+            </div>
+
             <div class="input-container">
                 <label for="ENRRequestParametersFromBaseEntity">RequestParametersFromBaseEntity</label>
                 <input id="ENRRequestParametersFromBaseEntity" name="ENRRequestParametersFromBaseEntity" type="text"/>

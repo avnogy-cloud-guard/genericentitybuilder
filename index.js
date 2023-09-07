@@ -1,5 +1,7 @@
 const form = document.querySelector('form');
 let EntityName = ""
+let RequestParameters = []
+let ENRRequestParameters = []
 
 form.querySelectorAll("input").forEach(input => {
     input.addEventListener("input", handleSubmit);
@@ -15,29 +17,6 @@ function show(who, obj, rev) {
     } else {
         document.getElementById(who).style.display = 'none';
     }
-}
-
-function removeInputPair(elem) {
-    const requestPair = elem.closest('.request-pair');
-    if (requestPair) {
-        requestPair.remove();
-    }
-    handleSubmit()
-}
-
-function addRequestParametersAnswer(name = '', value = '') {
-    console.log(name, value)
-    const requestContainer = document.getElementById('request-container');
-    const newRequestPair = document.createElement('div');
-    newRequestPair.classList.add('request-pair');
-    newRequestPair.classList.add('input-container');
-    newRequestPair.innerHTML = `
-         <input type="text" name="name" placeholder="Name" oninput="handleSubmit()" onblur="handleSubmit()" value="${name}">
-         <input type="text" name="value" placeholder="Value" oninput="handleSubmit()" onblur="handleSubmit()" value="${value}">
-         <button type="button" class="request-button" onclick="removeInputPair(this)">-</button>
-      `;
-    requestContainer.appendChild(newRequestPair);
-    handleSubmit()
 }
 
 function handleSubmit() {
@@ -57,21 +36,11 @@ function handleSubmit() {
 
     EntityName = "Aws" + obj.RuleTargetType
 
-
-    let RequestParameters = Array.from(document.getElementsByClassName('request-pair')).map((pair) => {
-        let name = formatInput(pair.querySelector('input[name="name"]').value)
-        let value = formatInput(pair.querySelector('input[name="value"]').value)
-        if (name !== '' || value !== '') {
-            return {
-                "ParameterName": name, "ParameterValue": value
-            };
-        }
-    }).filter((item) => !isEmpty(item));
-
+    updateRequestParams()
 
     let BasicEnrichmentConfig = (document.getElementById("ShouldEnrichBaseEntity").checked) ? {
         "ApiCall": stripAsyncOrRequest(obj.ENRApiCall) + "Async",
-        "RequestParameters": obj.ENRRequestParameters,
+        "RequestParameters": ENRRequestParameters,
         "RequiredPermissionConfig": {
             "RequiredPermission": obj.ENRRequiredPermission,
             "EntityType": obj.RuleTargetType,
@@ -212,6 +181,48 @@ function mutuallyExclusive(id1, id2) {
     });
 }
 
+function updateRequestParams() {
+    RequestParameters = []
+    ENRRequestParameters = []
+    Array.from(document.getElementsByClassName('request-pair')).map((pair) => {
+        let name = formatInput(pair.querySelector('input[name="name"]').value)
+        let value = formatInput(pair.querySelector('input[name="value"]').value)
+        if (name !== '' || value !== '') {
+            if (pair.querySelector('input[name="name"]').closest('.request-container').id === "request-container") {
+                RequestParameters.push({
+                    "ParameterName": name, "ParameterValue": value
+                })
+            } else {
+                ENRRequestParameters.push({
+                    "ParameterName": name, "ParameterValue": value
+                })
+            }
+        }
+    })
+}
+
+function removeInputPair(elem) {
+    const requestPair = elem.closest('.request-pair');
+    if (requestPair) {
+        requestPair.remove();
+    }
+    handleSubmit()
+}
+
+function addRequestParametersAnswer(elem, name = '', value = '') {
+    const requestContainer = elem.closest('.request-container');
+    const newRequestPair = document.createElement('div');
+    newRequestPair.classList.add('request-pair');
+    newRequestPair.classList.add('input-container');
+    newRequestPair.innerHTML = `
+         <input type="text" name="name" placeholder="Name" oninput="handleSubmit()" onblur="handleSubmit()" value="${name}">
+         <input type="text" name="value" placeholder="Value" oninput="handleSubmit()" onblur="handleSubmit()" value="${value}">
+         <button type="button" class="request-button" onclick="removeInputPair(this)">-</button>
+      `;
+    requestContainer.appendChild(newRequestPair);
+    handleSubmit()
+}
+
 function saveToLocalStorage() {
     for (let i = 0; i < form.elements.length; i++) {
         let key = form.elements[i].id;
@@ -225,16 +236,10 @@ function saveToLocalStorage() {
     localStorage.setItem("IsRegionLess", document.getElementById("IsRegionLess").checked)
     localStorage.setItem("IsExternalIdGenerated", document.getElementById("IsExternalIdGenerated").checked)
     localStorage.setItem("ShouldEnrichBaseEntity", document.getElementById("ShouldEnrichBaseEntity").checked)
-    let params = Array.from(document.getElementsByClassName('request-pair')).map((pair) => {
-        let name = formatInput(pair.querySelector('input[name="name"]').value)
-        let value = formatInput(pair.querySelector('input[name="value"]').value)
-        if (name !== '' || value !== '') {
-            return {
-                "ParameterName": name, "ParameterValue": value
-            };
-        }
-    }).filter((item) => !isEmpty(item));
-    localStorage.setItem("params", JSON.stringify(params))
+
+    updateRequestParams()
+    localStorage.setItem("params", JSON.stringify(RequestParameters))
+    localStorage.setItem("enrparams", JSON.stringify(ENRRequestParameters))
 }
 
 function loadFromLocalStorage() {
@@ -264,10 +269,17 @@ function loadFromLocalStorage() {
 
     const params = JSON.parse(localStorage.getItem("params"))
     for (let i = 0; i < params.length; i++) {
-
+        const RequestContainer = document.getElementById("request-container")
         const current = params[i]
-        addRequestParametersAnswer(current["ParameterName"], current["ParameterValue"])
+        addRequestParametersAnswer(RequestContainer, current["ParameterName"], current["ParameterValue"])
     }
+    const enrparams = JSON.parse(localStorage.getItem("enrparams"))
+    for (let i = 0; i < enrparams.length; i++) {
+        const RequestContainer = document.getElementById("enr-request-container")
+        const current = enrparams[i]
+        addRequestParametersAnswer(RequestContainer, current["ParameterName"], current["ParameterValue"])
+    }
+
     handleSubmit()
 }
 
