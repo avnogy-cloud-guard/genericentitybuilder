@@ -8,100 +8,97 @@
 
 </head>
 <body>
-<div class="form-center grid-container">
+<div class="grid-container">
     <div class="grid-item"></div>
-
     <pre class="grid-item"><code id="result">Ready..</code></pre>
     <form class="grid-item" id="form">
         <div class="input-container">
             <label for="RuleTargetType">RuleTargetType</label>
-            <input id="RuleTargetType" name="RuleTargetType"/>
+            <input id="RuleTargetType" name="RuleTargetType" type="text"/>
         </div>
         <div class="input-container">
             <label for="IsRulesEngineBaseEntity">IsRulesEngineBaseEntity</label>
-            <input class="checkbox" id="IsRulesEngineBaseEntity" name="IsRulesEngineBaseEntity" type="checkbox"/>
+            <input id="IsRulesEngineBaseEntity" name="IsRulesEngineBaseEntity" type="checkbox"/>
         </div>
         <div class="input-container">
             <label for="RulesEngineEntitySubTypes">RulesEngineEntitySubTypes</label>
-            <input id="RulesEngineEntitySubTypes" name="RulesEngineEntitySubTypes"/>
+            <input id="RulesEngineEntitySubTypes" name="RulesEngineEntitySubTypes" type="text"/>
         </div>
         <div class="input-container">
             <label for="AdditionalCollectionsToExposeInRE">AdditionalCollectionsToExposeInRE</label>
-            <input id="AdditionalCollectionsToExposeInRE" name="AdditionalCollectionsToExposeInRE"/>
+            <input id="AdditionalCollectionsToExposeInRE" name="AdditionalCollectionsToExposeInRE" type="text"/>
         </div>
         <hr class="dashed">
         <div class="input-container">
             <label for="IsCronTriggered">IsCronTriggered</label>
-            <input class="checkbox" id="IsCronTriggered" name="IsCronTriggered" onclick="show('cron',this)"
+            <input id="IsCronTriggered" name="IsCronTriggered" onclick="show('cron',this)"
                    type="checkbox"/>
         </div>
-        <div id="cron">
-            <div class="input-container">
-                <label for="CronExpression">CronExpression</label>
-                <input id="CronExpression" name="CronExpression"/>
-            </div>
+        <div class="input-container" id="cron">
+            <label for="CronExpression">CronExpression</label>
+            <input id="CronExpression" name="CronExpression" type="text"/>
         </div>
         <hr class="dashed">
         <div class="input-container">
             <label for="ContinueWith">ContinueWith</label>
-            <input id="ContinueWith" name="ContinueWith"/>
+            <input id="ContinueWith" name="ContinueWith" type="text"/>
         </div>
         <hr class="dashed">
         <div class="input-container">
             <label for="ShouldIndexEntity">ShouldIndexEntity</label>
-            <input class="checkbox" id="ShouldIndexEntity" name="ShouldIndexEntity" type="checkbox"/>
+            <input id="ShouldIndexEntity" name="ShouldIndexEntity" type="checkbox"/>
         </div>
         <div class="input-container">
             <label for="LookupEventSources">LookupEventSources</label>
-            <input id="LookupEventSources" name="LookupEventSources"/>
+            <input id="LookupEventSources" name="LookupEventSources" type="text"/>
         </div>
         <div class="input-container">
             <label for="IsRegionLess">IsRegionLess</label>
-            <input class="checkbox" id="IsRegionLess" name="IsRegionLess" onclick="show('region',this,true)"
+            <input id="IsRegionLess" name="IsRegionLess" onclick="show('region',this,true)"
                    type="checkbox"/>
         </div>
         <div id="region">
             <div class="input-container">
                 <label for="ExcludedRegions">ExcludedRegions</label>
-                <input id="ExcludedRegions" name="ExcludedRegions"/>
+                <input id="ExcludedRegions" name="ExcludedRegions" type="text"/>
             </div>
         </div>
         <div class="input-container">
             <label for="ExcludedVendors">ExcludedVendors</label>
-            <input id="ExcludedVendors" name="ExcludedVendors"/>
+            <input id="ExcludedVendors" name="ExcludedVendors" type="text"/>
         </div>
         <hr class="dashed">
         <div class="input-container">
             <label for="ResponsePropertyToUse">ResponsePropertyToUse</label>
-            <input id="ResponsePropertyToUse" name="ResponsePropertyToUse"/>
+            <input id="ResponsePropertyToUse" name="ResponsePropertyToUse" type="text"/>
         </div>
         <div class="input-container">
             <label for="PropertiesToRemoveFromExternalObject">PropertiesToRemoveFromExternalObject</label>
-            <input id="PropertiesToRemoveFromExternalObject" name="PropertiesToRemoveFromExternalObject"/>
+            <input id="PropertiesToRemoveFromExternalObject" name="PropertiesToRemoveFromExternalObject" type="text"/>
         </div>
         <div class="input-container">
             <label for="ExternalEntityIdProperty">ExternalEntityIdProperty</label>
-            <input id="ExternalEntityIdProperty" name="ExternalEntityIdProperty"/>
+            <input id="ExternalEntityIdProperty" name="ExternalEntityIdProperty" type="text"/>
         </div>
         <div class="input-container">
             <label for="ExternalEntityNameProperty">ExternalEntityNameProperty</label>
-            <input id="ExternalEntityNameProperty" name="ExternalEntityNameProperty"/>
+            <input id="ExternalEntityNameProperty" name="ExternalEntityNameProperty" type="text"/>
         </div>
         <div class="input-container">
             <label for="ExternalEntityTagsProperty">ExternalEntityTagsProperty</label>
-            <input id="ExternalEntityTagsProperty" name="ExternalEntityTagsProperty"/>
+            <input id="ExternalEntityTagsProperty" name="ExternalEntityTagsProperty" type="text"/>
         </div>
         <div class="input-container">
             <label for="AssemblyName">AssemblyName</label>
-            <input id="AssemblyName" name="AssemblyName"/>
+            <input id="AssemblyName" name="AssemblyName" type="text"/>
         </div>
         <div class="input-container">
             <label for="ApiCall">ApiCall</label>
-            <input id="ApiCall" name="ApiCall"/>
+            <input id="ApiCall" name="ApiCall" type="text"/>
         </div>
         <div class="input-container">
             <label for="RequiredPermission">RequiredPermission</label>
-            <input id="RequiredPermission" name="RequiredPermission"/>
+            <input id="RequiredPermission" name="RequiredPermission" type="text"/>
         </div>
         <hr class="dashed">
         <div class="input-container">
@@ -112,59 +109,63 @@
             <label for="RequestParametersName">Name</label>
             <input id="RequestParametersName" type="text">
         </div>
-        <label for="RequestParametersValue">Value</label>
-        <input id="RequestParametersValue" type="text">
+        <div class="input-container">
+            <label for="RequestParametersValue">Value</label>
+            <input id="RequestParametersValue" type="text">
+        </div>
+
         <div class="input-container">
             <ul id="RequestParametersList"></ul>
             <hr class="dashed">
         </div>
         <div class="input-container">
             <label for="PaginationMarker">PaginationMarker</label>
-            <input id="PaginationMarker" name="PaginationMarker"/>
+            <input id="PaginationMarker" name="PaginationMarker" type="text"/>
         </div>
         <div class="input-container">
             <label for="IsExternalIdGenerated">IsExternalIdGenerated</label>
-            <input class="checkbox" id="IsExternalIdGenerated" name="IsExternalIdGenerated" type="checkbox"/>
+            <input id="IsExternalIdGenerated" name="IsExternalIdGenerated" type="checkbox"/>
         </div>
         <hr class="dashed">
         <div class="input-container">
             <label for="ShouldEnrichBaseEntity">ShouldEnrichBaseEntity</label>
-            <input class="checkbox" id="ShouldEnrichBaseEntity" name="ShouldEnrichBaseEntity"
+            <input id="ShouldEnrichBaseEntity" name="ShouldEnrichBaseEntit type=texty"
                    onclick="show('enrichment',this)"
                    type="checkbox"/>
         </div>
         <div id="enrichment">
             <div class="input-container">
                 <label for="ENRApiCall">ApiCall</label>
-                <input id="ENRApiCall" name="ENRApiCall"/>
+                <input id="ENRApiCall" name="ENRApiCall" type="text"/>
             </div>
             <div class="input-container">
                 <label for="ENRRequiredPermission">RequiredPermission</label>
-                <input id="ENRRequiredPermission" name="ENRRequiredPermission"/>
+                <input id="ENRRequiredPermission" name="ENRRequiredPermission" type="text"/>
             </div>
             <div class="input-container">
                 <label for="ENRSubType">SubType</label>
-                <input id="ENRSubType" name="ENRSubType"/>
+                <input id="ENRSubType" name="ENRSubType" type="text"/>
             </div>
             <div class="input-container">
                 <label for="ENRRequestParameters">RequestParameters</label>
-                <input id="ENRRequestParameters" name="ENRRequestParameters"/>
+                <input id="ENRRequestParameters" name="ENRRequestParameters" type="text"/>
             </div>
             <div class="input-container">
                 <label for="ENRRequestParametersFromBaseEntity">RequestParametersFromBaseEntity</label>
-                <input id="ENRRequestParametersFromBaseEntity" name="ENRRequestParametersFromBaseEntity"/>
+                <input id="ENRRequestParametersFromBaseEntity" name="ENRRequestParametersFromBaseEntity" type="text"/>
             </div>
             <div class="input-container">
                 <label for="ENRResponsePropertyToUse">ResponsePropertyToUse</label>
-                <input id="ENRResponsePropertyToUse" name="ENRResponsePropertyToUse"/>
+                <input id="ENRResponsePropertyToUse" name="ENRResponsePropertyToUse" type="text"/>
             </div>
             <div class="input-container">
                 <label for="ENRPropertiesToRemoveFromExternalObject">PropertiesToRemoveFromExternalObject</label>
-                <input id="ENRPropertiesToRemoveFromExternalObject" name="ENRPropertiesToRemoveFromExternalObject"/>
+                <input id="ENRPropertiesToRemoveFromExternalObject" name="ENRPropertiesToRemoveFromExternalObject"
+                       type="text"/>
             </div>
             <div class="input-container">
                 <label for="ENRPaginationMarker">PaginationMarker</label>
-                <input id="ENRPaginationMarker" name="ENRPaginationMarker"/>
+                <input id="ENRPaginationMarker" name="ENRPaginationMarker" type="text"/>
             </div>
         </div>
 
