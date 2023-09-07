@@ -17,23 +17,25 @@ function show(who, obj, rev) {
     }
 }
 
-function addRequestParametersAnswer() {
-    let nameInput = document.getElementById('RequestParametersName');
-    let valueInput = document.getElementById('RequestParametersValue');
-    let name = formatInput(nameInput.value)
-    let value = formatInput(valueInput.value)
-    if (name !== '' && valueInput.value !== '') {
-        let li = document.createElement('li');
-        li.attributes.val = {"ParameterName": name, "ParameterValue": value}
-        li.textContent = "{\"" + name + "\"" + ':' + "\"" + value + "\"}";
-        li.addEventListener('click', function (event) {
-            this.parentNode.removeChild(this);
-            handleSubmit()
-        });
-        document.getElementById('RequestParametersList').appendChild(li);
-        nameInput.value = '';
-        valueInput.value = '';
+function removeInputPair(elem) {
+    const requestPair = elem.closest('.request-pair');
+    if (requestPair) {
+        requestPair.remove();
     }
+    handleSubmit()
+}
+
+function addRequestParametersAnswer() {
+    const requestContainer = document.getElementById('request-container');
+    const newRequestPair = document.createElement('div');
+    newRequestPair.classList.add('request-pair');
+    newRequestPair.classList.add('input-container');
+    newRequestPair.innerHTML = `
+         <input type="text" name="name" placeholder="Name" oninput="handleSubmit()" onblur="handleSubmit()">
+         <input type="text" name="value" placeholder="Value" oninput="handleSubmit()" onblur="handleSubmit()">
+         <button type="button" class="request-button" onclick="removeInputPair(this)">-</button>
+      `;
+    requestContainer.appendChild(newRequestPair);
     handleSubmit()
 }
 
@@ -55,9 +57,16 @@ function handleSubmit() {
     EntityName = "Aws" + obj.RuleTargetType
 
 
-    let RequestParameters = Array.from(document.querySelectorAll('#RequestParametersList li')).map(function (li) {
-        return li.attributes.val
-    });
+    let RequestParameters = Array.from(document.getElementsByClassName('request-pair')).map((pair) => {
+        let name = formatInput(pair.querySelector('input[name="name"]').value)
+        let value = formatInput(pair.querySelector('input[name="value"]').value)
+        if (name !== '' || value !== '') {
+            return {
+                "ParameterName": name, "ParameterValue": value
+            };
+        }
+    }).filter((item) => !isEmpty(item));
+
 
     let BasicEnrichmentConfig = (document.getElementById("ShouldEnrichBaseEntity").checked) ? {
         "ApiCall": stripAsyncOrRequest(obj.ENRApiCall) + "Async",
@@ -202,10 +211,6 @@ function mutuallyExclusive(id1, id2) {
     });
 }
 
-mutuallyExclusive("ResponsePropertyToUse", "PropertiesToRemoveFromExternalObject")
-mutuallyExclusive("ENRResponsePropertyToUse", "ENRPropertiesToRemoveFromExternalObject")
-
-
 function saveToLocalStorage() {
     for (let i = 0; i < form.elements.length; i++) {
         let key = form.elements[i].id;
@@ -244,3 +249,6 @@ function loadFromLocalStorage() {
     handleSubmit()
 
 }
+
+mutuallyExclusive("ResponsePropertyToUse", "PropertiesToRemoveFromExternalObject")
+mutuallyExclusive("ENRResponsePropertyToUse", "ENRPropertiesToRemoveFromExternalObject")

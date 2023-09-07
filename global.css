@@ -19,6 +19,16 @@ body {
     flex-direction: row
 }
 
+.request-button {
+    height: 25px;
+    width: 25px;
+}
+
+.request-pair {
+    display: flex;
+    flex-direction: column;
+}
+
 input[type=text] {
     flex: 1 1 auto;
     margin: 5px;

@@ -21,10 +21,6 @@
             <input id="IsRulesEngineBaseEntity" name="IsRulesEngineBaseEntity" type="checkbox"/>
         </div>
         <div class="input-container">
-            <label for="RulesEngineEntitySubTypes">RulesEngineEntitySubTypes</label>
-            <input id="RulesEngineEntitySubTypes" name="RulesEngineEntitySubTypes" type="text"/>
-        </div>
-        <div class="input-container">
             <label for="AdditionalCollectionsToExposeInRE">AdditionalCollectionsToExposeInRE</label>
             <input id="AdditionalCollectionsToExposeInRE" name="AdditionalCollectionsToExposeInRE" type="text"/>
         </div>
@@ -101,23 +97,14 @@
             <input id="RequiredPermission" name="RequiredPermission" type="text"/>
         </div>
         <hr class="dashed">
-        <div class="input-container">
+        <div class="input-container" id="request-container">
             <label>RequestParameters</label>
-            <button id="addRequestParametersButton" onclick="addRequestParametersAnswer()" type="button">+</button>
-        </div>
-        <div class="input-container">
-            <label for="RequestParametersName">Name</label>
-            <input id="RequestParametersName" type="text">
-        </div>
-        <div class="input-container">
-            <label for="RequestParametersValue">Value</label>
-            <input id="RequestParametersValue" type="text">
+            <button class="request-button" id="addRequestParametersButton" onclick="addRequestParametersAnswer()"
+                    type="button">+
+            </button>
         </div>
 
-        <div class="input-container">
-            <ul id="RequestParametersList"></ul>
-            <hr class="dashed">
-        </div>
+
         <div class="input-container">
             <label for="PaginationMarker">PaginationMarker</label>
             <input id="PaginationMarker" name="PaginationMarker" type="text"/>
