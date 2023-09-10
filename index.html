@@ -34,6 +34,27 @@
             <label for="CronExpression">CronExpression</label>
             <input id="CronExpression" name="CronExpression" type="text"/>
         </div>
+        <label for="advanced-checkbox">Advanced properties</label>
+        <input id="advanced-checkbox" name="advanced" onclick="show('advanced-parameters',this)" type="checkbox">
+
+        <div class="input-container" id="advanced-parameters">
+            <div class="input-container">
+                <label for="BatchSizeParallelism">BatchSizeParallelism</label>
+                <input id="BatchSizeParallelism" name="BatchSizeParallelism" type="text"/>
+            </div>
+            <div class="input-container">
+                <label for="LogFetchTimeThreshold">LogFetchTimeThreshold</label>
+                <input id="LogFetchTimeThreshold" name="LogFetchTimeThreshold" type="text"/>
+            </div>
+            <div class="input-container">
+                <label for="ThrottlingBackoffMedian">ThrottlingBackoffMedian</label>
+                <input id="ThrottlingBackoffMedian" name="ThrottlingBackoffMedian" type="text"/>
+            </div>
+            <div class="input-container">
+                <label for="ThrottlingBackoffMaxRetry">ThrottlingBackoffMaxRetry</label>
+                <input id="ThrottlingBackoffMaxRetry" name="ThrottlingBackoffMaxRetry" type="text"/>
+            </div>
+        </div>
         <hr class="dashed">
         <div class="input-container">
             <label for="ContinueWith">ContinueWith</label>

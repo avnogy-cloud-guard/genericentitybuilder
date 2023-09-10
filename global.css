@@ -6,7 +6,7 @@ body {
     font-family: Consolas, monospace;
 }
 
-#enrichment, #cron {
+#enrichment, #cron, #advanced-parameters {
     display: none;
 }
 

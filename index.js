@@ -17,6 +17,7 @@ function show(who, obj, rev) {
     } else {
         document.getElementById(who).style.display = 'none';
     }
+    handleSubmit()
 }
 
 function handleSubmit() {
@@ -55,6 +56,12 @@ function handleSubmit() {
 
     if (!isNaN(obj.CronExpression)) obj.CronExpression = obj.CronExpression + "/30 * * * ? *"
     if (!document.getElementById("IsCronTriggered").checked) obj.CronExpression = ""
+    if (!document.getElementById("advanced-checkbox").checked) {
+        obj.BatchSizeParallelism = ""
+        obj.LogFetchTimeThreshold = ""
+        obj.ThrottlingBackoffMedian = ""
+        obj.ThrottlingBackoffMaxRetry = ""
+    }
 
     let json = {
         "Entity": EntityName, "ComplianceConfig": {
@@ -68,7 +75,11 @@ function handleSubmit() {
             "ShouldEnrichBaseEntity": document.getElementById("ShouldEnrichBaseEntity").checked,
             "IsCronTriggered": document.getElementById("IsCronTriggered").checked,
             "CronExpression": obj.CronExpression,
-            "ContinueWith": formatArray(obj.ContinueWith)
+            "ContinueWith": formatArray(obj.ContinueWith),
+            "BatchSizeParallelism": obj.BatchSizeParallelism,
+            "LogFetchTimeThreshold": obj.LogFetchTimeThreshold,
+            "ThrottlingBackoffMedian": obj.ThrottlingBackoffMedian,
+            "ThrottlingBackoffMaxRetry": obj.ThrottlingBackoffMaxRetry,
         }, "IndexerConfig": {
             "ShouldIndexEntity": document.getElementById("ShouldIndexEntity").checked,
         }, "ApiConfig": {
