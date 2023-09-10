@@ -185,10 +185,14 @@ function mutuallyExclusive(id1, id2) {
 
     input1.addEventListener('input', function () {
         input2.disabled = !!input1.value;
+        input2.placeholder = !!input1.value ? "disabled" : ""
+
     });
 
     input2.addEventListener('input', function () {
         input1.disabled = !!input2.value;
+        input1.placeholder = !!input2.value ? "disabled" : ""
+
     });
 }
 
