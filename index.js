@@ -49,7 +49,7 @@ function handleSubmit() {
         },
         "RequestInfo": "Amazon." + obj.AssemblyName + ".Model." + stripAsyncOrRequest(obj.ENRApiCall) + "Request, AWSSDK." + obj.AssemblyName,
         "PaginationMarker": obj.ENRPaginationMarker,
-        "RequestParametersFromBaseEntity": {[obj.ENRRequestParametersFromBaseEntityBase]: obj.ENRRequestParametersFromBaseEntityENR},
+        "RequestParametersFromBaseEntity": {[obj.ENRRequestParametersFromBaseEntityENR]: obj.ENRRequestParametersFromBaseEntityBase},
         "ResponsePropertyToUse": obj.ENRResponsePropertyToUse,
         "PropertiesToRemoveFromExternalObject": formatArray(obj.ENRPropertiesToRemoveFromExternalObject)
     } : undefined;
