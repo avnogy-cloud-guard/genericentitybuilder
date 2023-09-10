@@ -86,6 +86,7 @@ function handleSubmit() {
             "LookupEventSources": formatArray(obj.LookupEventSources),
             "IsRegionLess": document.getElementById("IsRegionLess").checked,
             "ExcludedRegions": formatArray(obj.ExcludedRegions),
+            "ExcludedVendors": formatArray(obj.ExcludedVendors),
             "ResponsePropertyToUse": obj.ResponsePropertyToUse,
             "PropertiesToRemoveFromExternalObject": formatArray(obj.PropertiesToRemoveFromExternalObject),
             "ExternalEntityIdProperty": obj.ExternalEntityIdProperty,
