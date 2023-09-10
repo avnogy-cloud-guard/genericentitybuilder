@@ -13,26 +13,31 @@
     <pre class="grid-item"><code id="result">Ready..</code></pre>
     <form class="grid-item" id="form">
         <div class="input-container">
-            <label for="RuleTargetType">RuleTargetType</label>
+            <label for="RuleTargetType" title="The name that will be shown in GSL">RuleTargetType</label>
             <input id="RuleTargetType" name="RuleTargetType" type="text"/>
         </div>
         <div class="input-container">
-            <label for="IsRulesEngineBaseEntity">IsRulesEngineBaseEntity</label>
+            <label for="IsRulesEngineBaseEntity" title="Determines if the entity will have a Rule Engine entity or not">IsRulesEngineBaseEntity</label>
             <input id="IsRulesEngineBaseEntity" name="IsRulesEngineBaseEntity" type="checkbox"/>
         </div>
         <div class="input-container">
-            <label for="AdditionalCollectionsToExposeInRE">AdditionalCollectionsToExposeInRE</label>
+            <label for="AdditionalCollectionsToExposeInRE"
+                   title="List of collections you wish to expose in the Rule Engine">AdditionalCollectionsToExposeInRE</label>
             <input id="AdditionalCollectionsToExposeInRE" name="AdditionalCollectionsToExposeInRE" type="text"/>
         </div>
         <hr class="dashed">
         <div class="input-container">
-            <label for="IsCronTriggered">IsCronTriggered</label>
+            <label for="IsCronTriggered"
+                   title="determines in the producer runs according to time, should be true for base entities">IsCronTriggered</label>
             <input id="IsCronTriggered" name="IsCronTriggered" onclick="show('cron',this)"
                    type="checkbox"/>
         </div>
         <div class="input-container" id="cron">
-            <label for="CronExpression">CronExpression</label>
+            <label for="CronExpression"
+                   title="find the least busy minute in a minute timeslice and set it as the cron expression for the entity">CronExpression</label>
             <input id="CronExpression" name="CronExpression" type="text"/>
+            <a href="https://service.sumologic.com/ui/#/search/create?id=fKoK7eC5OWNW5G4NRSLJM7Sa0u6MLLzcrmpeySAh"
+               rel="noopener noreferrer" target="_blank">Sumo</a>
         </div>
         <label for="advanced-checkbox">Advanced properties</label>
         <input id="advanced-checkbox" name="advanced" onclick="show('advanced-parameters',this)" type="checkbox">
@@ -57,31 +62,36 @@
         </div>
         <hr class="dashed">
         <div class="input-container">
-            <label for="ContinueWith">ContinueWith</label>
+            <label for="ContinueWith" title="list of the names of the enrichments configs">ContinueWith</label>
             <input id="ContinueWith" name="ContinueWith" type="text"/>
         </div>
         <hr class="dashed">
         <div class="input-container">
-            <label for="ShouldIndexEntity">ShouldIndexEntity</label>
+            <label for="ShouldIndexEntity"
+                   title="Determines if the entity should be indexed in the AssetsIndexer - should be true for all base entities and false for enrichments/non-RE base entities">ShouldIndexEntity</label>
             <input id="ShouldIndexEntity" name="ShouldIndexEntity" type="checkbox"/>
         </div>
         <div class="input-container">
-            <label for="LookupEventSources">LookupEventSources</label>
+            <label for="LookupEventSources" title="go to CloudTrail -> EventHistory -> filter to event source -> search for the specific action -> search for your entity (“rds” for example) -> and copy  “rds.amazonaws.com”
+
+make sure you see your specific action under that event source.">LookupEventSources</label>
             <input id="LookupEventSources" name="LookupEventSources" type="text"/>
         </div>
         <div class="input-container">
-            <label for="IsRegionLess">IsRegionLess</label>
+            <label for="IsRegionLess" title="check for non region based entities">IsRegionLess</label>
             <input id="IsRegionLess" name="IsRegionLess" onclick="show('region',this,true)"
                    type="checkbox"/>
         </div>
         <div id="region">
             <div class="input-container">
-                <label for="ExcludedRegions">ExcludedRegions</label>
+                <label for="ExcludedRegions"
+                       title="list of regions the service is not supported in, the values in this list will not be sent to the region dispatcher">ExcludedRegions</label>
                 <input id="ExcludedRegions" name="ExcludedRegions" type="text"/>
             </div>
         </div>
         <div class="input-container">
-            <label for="ExcludedVendors">ExcludedVendors</label>
+            <label for="ExcludedVendors"
+                   title="list of Vendors to exclude in case you have entities with the same name in different Vendors">ExcludedVendors</label>
             <input id="ExcludedVendors" name="ExcludedVendors" type="text"/>
         </div>
         <hr class="dashed">
@@ -90,72 +100,91 @@
             <input id="ResponsePropertyToUse" name="ResponsePropertyToUse" type="text"/>
         </div>
         <div class="input-container">
-            <label for="PropertiesToRemoveFromExternalObject">PropertiesToRemoveFromExternalObject</label>
-            <input id="PropertiesToRemoveFromExternalObject" name="PropertiesToRemoveFromExternalObject" type="text"/>
+            <label for="PropertiesToRemoveFromExternalObject"
+                   title="list of properties that you receive from the API call and wish to not save them.">PropertiesToRemoveFromExternalObject</label>
+            <input id="PropertiesToRemoveFromExternalObject" name="PropertiesToRemoveFromExternalObject"
+                   type="text"/>
         </div>
         <div class="input-container">
-            <label for="ExternalEntityIdProperty">ExternalEntityIdProperty</label>
+            <label for="ExternalEntityIdProperty"
+                   title="the property that returns from the API call that we wish to save as the unique external ID in the DB">ExternalEntityIdProperty</label>
             <input id="ExternalEntityIdProperty" name="ExternalEntityIdProperty" type="text"/>
         </div>
         <div class="input-container">
-            <label for="ExternalEntityNameProperty">ExternalEntityNameProperty</label>
+            <label for="ExternalEntityNameProperty" title="the property the represents the name of the entity">ExternalEntityNameProperty</label>
             <input id="ExternalEntityNameProperty" name="ExternalEntityNameProperty" type="text"/>
         </div>
         <div class="input-container">
-            <label for="ExternalEntityTagsProperty">ExternalEntityTagsProperty</label>
+            <label for="ExternalEntityTagsProperty"
+                   title="the property that represents the Tags of the entity, if used, the data will be saved under property ExternalObject.Tags as opposed to ExternalObject.<original_property_name>.">ExternalEntityTagsProperty</label>
             <input id="ExternalEntityTagsProperty" name="ExternalEntityTagsProperty" type="text"/>
         </div>
         <div class="input-container">
-            <label for="AssemblyName">AssemblyName</label>
+            <label for="AssemblyName" title="the name of the SDK Assembly - should be similar to ruleTargetType
+for example:
+      Amazon. --> CodeStar <-- .Model.ListTagsForProjectRequest
+">AssemblyName</label>
             <input id="AssemblyName" name="AssemblyName" type="text"/>
         </div>
         <div class="input-container">
-            <label for="ApiCall">ApiCall</label>
+            <label for="ApiCall"
+                   title="Name of action to be called, as appears in the documentation - this is the name of the request">ApiCall</label>
             <input id="ApiCall" name="ApiCall" type="text"/>
         </div>
         <div class="input-container">
-            <label for="RequiredPermission">RequiredPermission</label>
+            <label for="RequiredPermission"
+                   title="the permission the vendor requires from the client to accept the API call for this entity">RequiredPermission</label>
             <input id="RequiredPermission" name="RequiredPermission" type="text"/>
         </div>
         <hr class="dashed">
         <div class="input-container request-container" id="request-container">
-            <label>RequestParameters</label>
-            <button class="request-button" id="addRequestParametersButton" onclick="addRequestParametersAnswer(this)"
+            <label title="a list of subobject to set values for specific properties in the request (see AwsShield for example).">RequestParameters</label>
+            <button class="request-button" id="addRequestParametersButton"
+                    onclick="addRequestParametersAnswer(this)"
                     type="button">+
             </button>
         </div>
 
 
         <div class="input-container">
-            <label for="PaginationMarker">PaginationMarker</label>
+            <label for="PaginationMarker" title="if the response is paginated this is the marker (usually NextToken)">PaginationMarker</label>
             <input id="PaginationMarker" name="PaginationMarker" type="text"/>
         </div>
         <div class="input-container">
-            <label for="IsExternalIdGenerated">IsExternalIdGenerated</label>
+            <label for="IsExternalIdGenerated"
+                   title=" in case there is not a proper property to use as an ExternalId - mark this field as true.
+
+It will generate an ExternalId string based on the region(if applicable), AWS account number, and entity name.
+
+See AwsMacieSession for reference.">IsExternalIdGenerated</label>
             <input id="IsExternalIdGenerated" name="IsExternalIdGenerated" type="checkbox"/>
         </div>
         <hr class="dashed">
         <div class="input-container">
-            <label for="ShouldEnrichBaseEntity">ShouldEnrichBaseEntity</label>
+            <label for="ShouldEnrichBaseEntity"
+                   title="if you have only one enrichment. See AwsCustomDomainName for reference.">ShouldEnrichBaseEntity</label>
             <input id="ShouldEnrichBaseEntity" name="ShouldEnrichBaseEntit type=texty"
                    onclick="show('enrichment',this)"
                    type="checkbox"/>
         </div>
         <div id="enrichment">
             <div class="input-container">
-                <label for="ENRApiCall">ApiCall</label>
+                <label for="ENRApiCall"
+                       title="Name of action to be called, as appears in the documentation - this is the name of the request">ApiCall</label>
                 <input id="ENRApiCall" name="ENRApiCall" type="text"/>
             </div>
             <div class="input-container">
-                <label for="ENRRequiredPermission">RequiredPermission</label>
+                <label for="ENRRequiredPermission"
+                       title="the permission the vendor requires from the client to accept the API call for this entity">RequiredPermission</label>
                 <input id="ENRRequiredPermission" name="ENRRequiredPermission" type="text"/>
             </div>
             <div class="input-container">
-                <label for="ENRSubType">SubType</label>
+                <label for="ENRSubType"
+                       title="should be the name for the enrichment sub-type to be used in the permission table">SubType</label>
                 <input id="ENRSubType" name="ENRSubType" type="text"/>
             </div>
             <div class="input-container request-container" id="enr-request-container">
-                <label>RequestParameters</label>
+                <label title="a list of subobject to set values for specific properties in the request (see AwsShield for example).">RequestParameters</label>
                 <button class="request-button" id="enrAddRequestParametersButton"
                         onclick="addRequestParametersAnswer(this)"
                         type="button">+
@@ -163,7 +192,7 @@
             </div>
 
             <div class="input-container">
-                <label>RequestParametersFromBaseEntity</label>
+                <label title="parameters needed from the base entity to the enrichment API call">RequestParametersFromBaseEntity</label>
                 <input id="ENRRequestParametersFromBaseEntityENR" name="ENRRequestParametersFromBaseEntityENR"
                        placeholder="Enrichment" type="text"/>
                 <input id="ENRRequestParametersFromBaseEntityBase" name="ENRRequestParametersFromBaseEntityBase"
@@ -174,12 +203,14 @@
                 <input id="ENRResponsePropertyToUse" name="ENRResponsePropertyToUse" type="text"/>
             </div>
             <div class="input-container">
-                <label for="ENRPropertiesToRemoveFromExternalObject">PropertiesToRemoveFromExternalObject</label>
+                <label for="ENRPropertiesToRemoveFromExternalObject"
+                       title="list of properties that you receive from the API call and wish to not save them.">PropertiesToRemoveFromExternalObject</label>
                 <input id="ENRPropertiesToRemoveFromExternalObject" name="ENRPropertiesToRemoveFromExternalObject"
                        type="text"/>
             </div>
             <div class="input-container">
-                <label for="ENRPaginationMarker">PaginationMarker</label>
+                <label for="ENRPaginationMarker"
+                       title="if the response is paginated this is the marker (usually NextToken)">PaginationMarker</label>
                 <input id="ENRPaginationMarker" name="ENRPaginationMarker" type="text"/>
             </div>
         </div>
