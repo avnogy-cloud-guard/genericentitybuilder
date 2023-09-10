@@ -179,22 +179,22 @@ function formatArray(input) {
     }
 }
 
-function mutuallyExclusive(id1, id2) {
-    let input1 = document.getElementById(id1);
-    let input2 = document.getElementById(id2);
-
-    input1.addEventListener('input', function () {
-        input2.disabled = !!input1.value;
-        input2.placeholder = !!input1.value ? "disabled" : ""
-
-    });
-
-    input2.addEventListener('input', function () {
-        input1.disabled = !!input2.value;
-        input1.placeholder = !!input2.value ? "disabled" : ""
-
-    });
-}
+// function mutuallyExclusive(id1, id2) {
+//     let input1 = document.getElementById(id1);
+//     let input2 = document.getElementById(id2);
+//
+//     input1.addEventListener('input', function () {
+//         input2.disabled = !!input1.value;
+//         input2.placeholder = !!input1.value ? "*" : ""
+//
+//     });
+//
+//     input2.addEventListener('input', function () {
+//         input1.disabled = !!input2.value;
+//         input1.placeholder = !!input2.value ? "" : ""
+//
+//     });
+// }
 
 function updateRequestParams() {
     RequestParameters = []
@@ -300,5 +300,5 @@ function loadFromLocalStorage() {
     handleSubmit()
 }
 
-mutuallyExclusive("ResponsePropertyToUse", "PropertiesToRemoveFromExternalObject")
-mutuallyExclusive("ENRResponsePropertyToUse", "ENRPropertiesToRemoveFromExternalObject")
+// mutuallyExclusive("ResponsePropertyToUse", "PropertiesToRemoveFromExternalObject")
+// mutuallyExclusive("ENRResponsePropertyToUse", "ENRPropertiesToRemoveFromExternalObject")
