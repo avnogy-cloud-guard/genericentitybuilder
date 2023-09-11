@@ -116,8 +116,8 @@ function handleSubmit() {
     return json;
 }
 
-const stripAsyncOrRequest = input => input.toString().replace(/(async|request)$/i, '');
-const stripAwsOrEntity = input => input.toString().replace(/^(Aws)(.*)(Entity)$/i, '\$2');
+const stripAsyncOrRequest = input => formatInput(input).toString().replace(/(async|request)$/i, '');
+const stripAwsOrEntity = input => formatInput(input).toString().replace(/^(Aws)(.*)(Entity)$/i, '\$2');
 
 function saveTextAsFile() {
     var textToWrite = handleSubmit()
