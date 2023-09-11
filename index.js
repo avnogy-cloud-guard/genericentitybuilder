@@ -3,6 +3,11 @@ let EntityName = ""
 let RequestParameters = []
 let ENRRequestParameters = []
 
+function copySumo() {
+    navigator.clipboard.writeText('AwsGenericEntity producer published | parse "Entity=*." as entity   | timeslice 1m | count(entity) by _timeslice')
+    document.getElementById("sumo").innerHTML = 'Copied!'
+}
+
 form.querySelectorAll("input").forEach(input => {
     input.addEventListener("input", handleSubmit);
     input.addEventListener("change", handleSubmit);
