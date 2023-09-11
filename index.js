@@ -111,8 +111,21 @@ function handleSubmit() {
             "BasicEnrichmentConfig": BasicEnrichmentConfig,
         }
     };
+    // mongo indexes
+    if (!isEmpty(json.ComplianceConfig.ServiceNameInVendor)) {
+        let indexes = [{
+            "AccountId": 1, "LocationInfo.CloudAccountId": 1
+        }]
+
+        if (!json.ApiConfig.IsRegionLess) indexes[0]["LocationInfo.Region"] = 1
+        document.getElementById("mongo-indexes").innerText = "\"" + json.FetcherConfig.EntitiesCollection + "\" : " + JSON.stringify(indexes, null, 2);
+
+    }
+
     json = JSON.stringify(json, replacer, 2);
     document.getElementById("result").innerText = json;
+
+
     return json;
 }
 

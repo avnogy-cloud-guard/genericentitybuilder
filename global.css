@@ -95,7 +95,7 @@ pre {
 .grid-container {
     display: grid;
     grid-template-columns: auto 40% 50% auto;
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto auto;
     padding: 10px;
     width: 100%;
     max-width: 125em;
@@ -109,4 +109,16 @@ pre {
 #button-container {
     display: grid;
     grid-template-columns: auto auto;
+}
+
+p, h4 {
+    margin: 5px;
+}
+
+.mongo-container {
+    padding: 20px;
+
+    & code {
+        margin: 5px;
+    }
 }
