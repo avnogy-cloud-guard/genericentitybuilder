@@ -38,7 +38,7 @@ function handleSubmit() {
         obj.ENRPropertiesToRemoveFromExternalObject = ""
     }
 
-    obj.RuleTargetType = stripAwsOrEntity(obj.RuleTargetType)
+    obj.RuleTargetType = stripAwsOrEntity(obj.ServiceNameInVendor) + stripAwsOrEntity(obj.EntityType)
 
     EntityName = "Aws" + obj.RuleTargetType
 
@@ -70,11 +70,12 @@ function handleSubmit() {
 
     let json = {
         "Entity": EntityName, "ComplianceConfig": {
+            "IsRulesEngineBaseEntity": document.getElementById("IsRulesEngineBaseEntity").checked,
             "RuleTargetType": obj.RuleTargetType,
             "Vendor": "AWS",
-            "IsRulesEngineBaseEntity": document.getElementById("IsRulesEngineBaseEntity").checked,
             "AdditionalCollectionsToExposeInRE": obj.AdditionalCollectionsToExposeInRE,
-            "ServiceNameInVendor": obj.RuleTargetType
+            "ServiceNameInVendor": obj.ServiceNameInVendor.toLowerCase(),
+            "ServiceDisplayName": "Amazon " + obj.ServiceNameInVendor + " " + obj.EntityType
         }, "FetcherConfig": {
             "EntitiesCollection": EntityName + "Entity",
             "ShouldEnrichBaseEntity": document.getElementById("ShouldEnrichBaseEntity").checked,
