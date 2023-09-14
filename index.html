@@ -11,22 +11,23 @@
 <div class="grid-container">
 
     <div class="grid-item"></div>
-    <h2>The Generic Entity Builder</h2>
+    <h2>The AWS Generic Entity Builder</h2>
     <div>
-    <p style="font-size: smaller; margin-left: 25px">Hover over the names of the fields to show more</p>
-<p style="font-size: smaller; margin-left: 25px">You can click on Save and load to keep your work and get it back from localstorage
-</p> </div>
+        <p style="font-size: smaller; margin-left: 25px">Hover over the names of the fields to show more</p>
+        <p style="font-size: smaller; margin-left: 25px">You can click on Save and load to keep your work and get it
+            back from localstorage
+        </p></div>
     <div class="grid-item"></div>
     <div class="grid-item"></div>
     <pre class="grid-item"><code id="result">Ready..</code></pre>
     <form class="grid-item" id="form">
         <div class="input-container">
             <label for="ServiceNameInVendor" title="The name of the service in the vendor">Service Name</label>
-            <input id="ServiceNameInVendor" name="ServiceNameInVendor" type="text"/>
+            <input id="ServiceNameInVendor" name="ServiceNameInVendor" placeholder="Ex: DataSync" type="text"/>
         </div>
         <div class="input-container">
             <label for="EntityType" title="The name of the entity inside the service">Entity Name in service</label>
-            <input id="EntityType" name="EntityType" type="text"/>
+            <input id="EntityType" name="EntityType" placeholder="Ex: Task" type="text"/>
         </div>
         <div class="input-container">
             <label for="IsRulesEngineBaseEntity" title="Determines if the entity will have a Rule Engine entity or not">IsRulesEngineBaseEntity</label>
@@ -74,7 +75,7 @@
         <hr class="dashed">
         <div class="input-container">
             <label for="ContinueWith" title="list of the names of the enrichments configs">ContinueWith</label>
-            <input id="ContinueWith" name="ContinueWith" type="text"/>
+            <input id="ContinueWith" name="ContinueWith" placeholder="Ex: AwsDataSyncTaskDescription" type="text"/>
         </div>
         <hr class="dashed">
         <div class="input-container">
@@ -86,7 +87,8 @@
             <label for="LookupEventSources" title="go to CloudTrail -> EventHistory -> filter to event source -> search for the specific action -> search for your entity (“rds” for example) -> and copy  “rds.amazonaws.com”
 
 make sure you see your specific action under that event source.">LookupEventSources</label>
-            <input id="LookupEventSources" name="LookupEventSources" type="text"/>
+            <input id="LookupEventSources" name="LookupEventSources" placeholder="Ex: datasync.amazonaws.com"
+                   type="text"/>
         </div>
         <div class="input-container">
             <label for="IsRegionLess" title="check for non region based entities">IsRegionLess</label>
@@ -97,24 +99,24 @@ make sure you see your specific action under that event source.">LookupEventSour
             <div class="input-container">
                 <label for="ExcludedRegions"
                        title="list of regions the service is not supported in, the values in this list will not be sent to the region dispatcher">ExcludedRegions</label>
-                <input id="ExcludedRegions" name="ExcludedRegions" type="text"/>
+                <input id="ExcludedRegions" name="ExcludedRegions" placeholder="Paste list here" type="text">
             </div>
         </div>
         <div class="input-container">
             <label for="ExcludedVendors"
                    title="list of Vendors to exclude in case you have entities with the same name in different Vendors">ExcludedVendors</label>
-            <input id="ExcludedVendors" name="ExcludedVendors" type="text"/>
+            <input id="ExcludedVendors" name="ExcludedVendors" placeholder='Ex: AWS China, AWS GovCloud' type="text"/>
         </div>
         <hr class="dashed">
         <div class="input-container">
             <label for="ResponsePropertyToUse">ResponsePropertyToUse</label>
-            <input id="ResponsePropertyToUse" name="ResponsePropertyToUse" type="text"/>
+            <input id="ResponsePropertyToUse" name="ResponsePropertyToUse" placeholder="Ex: Tasks" type="text"/>
         </div>
         <div class="input-container">
             <label for="PropertiesToRemoveFromExternalObject"
                    title="list of properties that you receive from the API call and wish to not save them.">PropertiesToRemoveFromExternalObject</label>
             <input id="PropertiesToRemoveFromExternalObject" name="PropertiesToRemoveFromExternalObject"
-                   type="text"/>
+                   placeholder='ContentLength, HttpStatusCode ...' type="text"/>
         </div>
         <div class="input-container">
             <label for="ExternalEntityIdProperty"
@@ -134,18 +136,18 @@ make sure you see your specific action under that event source.">LookupEventSour
             <label for="AssemblyName" title="the name of the SDK Assembly - should be similar to ruleTargetType
 for example:
       Amazon. --> CodeStar <-- .Model.ListTagsForProjectRequest
-">SDK Name</label>
-            <input id="AssemblyName" name="AssemblyName" type="text"/>
+">AWSSDK Name</label>
+            <input id="AssemblyName" name="AssemblyName" placeholder="Ex: DataSync" type="text"/>
         </div>
         <div class="input-container">
             <label for="ApiCall"
                    title="Name of action to be called, as appears in the documentation - this is the name of the request">ApiCall</label>
-            <input id="ApiCall" name="ApiCall" type="text"/>
+            <input id="ApiCall" name="ApiCall" placeholder="Ex: ListTasksAsync" type="text"/>
         </div>
         <div class="input-container">
             <label for="RequiredPermission"
                    title="the permission the vendor requires from the client to accept the API call for this entity">RequiredPermission</label>
-            <input id="RequiredPermission" name="RequiredPermission" type="text"/>
+            <input id="RequiredPermission" name="RequiredPermission" placeholder="Ex: datasync:ListTasks" type="text"/>
         </div>
         <hr class="dashed">
         <div class="input-container request-container" id="request-container">
@@ -159,7 +161,7 @@ for example:
 
         <div class="input-container">
             <label for="PaginationMarker" title="if the response is paginated this is the marker (usually NextToken)">PaginationMarker</label>
-            <input id="PaginationMarker" name="PaginationMarker" type="text"/>
+            <input id="PaginationMarker" name="PaginationMarker" placeholder="Ex: NextToken" type="text"/>
         </div>
         <div class="input-container">
             <label for="IsExternalIdGenerated"
@@ -182,17 +184,18 @@ See AwsMacieSession for reference.">IsExternalIdGenerated</label>
             <div class="input-container">
                 <label for="ENRApiCall"
                        title="Name of action to be called, as appears in the documentation - this is the name of the request">ApiCall</label>
-                <input id="ENRApiCall" name="ENRApiCall" type="text"/>
+                <input id="ENRApiCall" name="ENRApiCall" placeholder="Ex: ListTagsForResourceAsync" type="text"/>
             </div>
             <div class="input-container">
                 <label for="ENRRequiredPermission"
                        title="the permission the vendor requires from the client to accept the API call for this entity">RequiredPermission</label>
-                <input id="ENRRequiredPermission" name="ENRRequiredPermission" type="text"/>
+                <input id="ENRRequiredPermission" name="ENRRequiredPermission" placeholder="Ex: datasync:TagResource"
+                       type="text"/>
             </div>
             <div class="input-container">
                 <label for="ENRSubType"
                        title="should be the name for the enrichment sub-type to be used in the permission table">SubType</label>
-                <input id="ENRSubType" name="ENRSubType" type="text"/>
+                <input id="ENRSubType" name="ENRSubType" placeholder="Ex: Tags" type="text"/>
             </div>
             <div class="input-container request-container" id="enr-request-container">
                 <label title="a list of subobject to set values for specific properties in the request (see AwsShield for example).">RequestParameters</label>
@@ -211,18 +214,19 @@ See AwsMacieSession for reference.">IsExternalIdGenerated</label>
             </div>
             <div class="input-container">
                 <label for="ENRResponsePropertyToUse">ResponsePropertyToUse</label>
-                <input id="ENRResponsePropertyToUse" name="ENRResponsePropertyToUse" type="text"/>
+                <input id="ENRResponsePropertyToUse" name="ENRResponsePropertyToUse" placeholder="Ex: Tags"
+                       type="text"/>
             </div>
             <div class="input-container">
                 <label for="ENRPropertiesToRemoveFromExternalObject"
                        title="list of properties that you receive from the API call and wish to not save them.">PropertiesToRemoveFromExternalObject</label>
                 <input id="ENRPropertiesToRemoveFromExternalObject" name="ENRPropertiesToRemoveFromExternalObject"
-                       type="text"/>
+                       placeholder='ContentLength, HttpStatusCode ...' type="text"/>
             </div>
             <div class="input-container">
                 <label for="ENRPaginationMarker"
                        title="if the response is paginated this is the marker (usually NextToken)">PaginationMarker</label>
-                <input id="ENRPaginationMarker" name="ENRPaginationMarker" type="text"/>
+                <input id="ENRPaginationMarker" name="ENRPaginationMarker" placeholder="Ex: NextToken" type="text"/>
             </div>
         </div>
     </form>

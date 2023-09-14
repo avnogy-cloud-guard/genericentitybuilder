@@ -195,7 +195,9 @@ function formatArray(input) {
     } else {
         return input.toString().replace(/[\[\]"]/g, '').split(',').filter(element => {
             return !isEmpty(element);
-        }).map(element => {return element.trim()});
+        }).map(element => {
+            return element.trim()
+        });
 
     }
 }
