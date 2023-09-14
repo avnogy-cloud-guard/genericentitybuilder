@@ -193,9 +193,9 @@ function formatArray(input) {
     if (Array.isArray(input) && typeof input[0] === 'string') {
         return input;
     } else {
-        return input.toString().replace(/[\[\] "]/g, '').split(',').filter(element => {
+        return input.toString().replace(/[\[\]"]/g, '').split(',').filter(element => {
             return !isEmpty(element);
-        });
+        }).map(element => {return element.trim()});
 
     }
 }
