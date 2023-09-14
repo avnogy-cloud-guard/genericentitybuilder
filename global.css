@@ -111,7 +111,7 @@ pre {
     grid-template-columns: auto auto;
 }
 
-p, h4 {
+p, h4 ,h2{
     margin: 5px;
 }
 

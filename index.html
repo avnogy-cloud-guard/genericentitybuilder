@@ -9,15 +9,20 @@
 </head>
 <body>
 <div class="grid-container">
+
+    <div class="grid-item"></div>
+    <h2>The Generic Entity Builder</h2>
+    <p>Tip: Hover over the names of the fields to show more</p>
+    <div class="grid-item"></div>
     <div class="grid-item"></div>
     <pre class="grid-item"><code id="result">Ready..</code></pre>
     <form class="grid-item" id="form">
         <div class="input-container">
-            <label for="ServiceNameInVendor" title="The name of the service in the vendor">ServiceNameInVendor</label>
+            <label for="ServiceNameInVendor" title="The name of the service in the vendor">Service Name</label>
             <input id="ServiceNameInVendor" name="ServiceNameInVendor" type="text"/>
         </div>
         <div class="input-container">
-            <label for="EntityType" title="The name of the entity inside the service">EntityType</label>
+            <label for="EntityType" title="The name of the entity inside the service">Entity Name in service</label>
             <input id="EntityType" name="EntityType" type="text"/>
         </div>
         <div class="input-container">
@@ -126,7 +131,7 @@ make sure you see your specific action under that event source.">LookupEventSour
             <label for="AssemblyName" title="the name of the SDK Assembly - should be similar to ruleTargetType
 for example:
       Amazon. --> CodeStar <-- .Model.ListTagsForProjectRequest
-">AssemblyName</label>
+">SDK Name</label>
             <input id="AssemblyName" name="AssemblyName" type="text"/>
         </div>
         <div class="input-container">
@@ -220,7 +225,8 @@ See AwsMacieSession for reference.">IsExternalIdGenerated</label>
     </form>
     <div class="grid-item"></div>
     <div class="grid-item"></div>
-    <pre class="grid-item"><code id="mongo-indexes">Ready..</code></pre>
+    <pre class="grid-item"><code id="mongo-indexes">Ready..
+(this is based on the service and the entity names)</code></pre>
     <div class="mongo-container"><h4>Mongo Indexes: </h4>
         <p>Add this to the file</p>
         <code>
