@@ -2,6 +2,7 @@ const form = document.querySelector('form');
 let EntityName = ""
 let RequestParameters = []
 let ENRRequestParameters = []
+let DisplayNameChanged = false
 
 function copySumo() {
     navigator.clipboard.writeText('AwsGenericEntity producer published | parse "Entity=*." as entity   | timeslice 1m | count(entity) by _timeslice')
@@ -13,7 +14,6 @@ form.querySelectorAll("input").forEach(input => {
     input.addEventListener("change", handleSubmit);
     input.addEventListener("blur", handleSubmit);
 });
-
 
 function show(who, obj, rev) {
     if ((rev && !obj.checked) || !rev && obj.checked) {
@@ -31,6 +31,8 @@ function handleSubmit() {
     for (let key in obj) {
         obj[key] = formatInput(obj[key]);
     }
+
+
     if (document.getElementById("PropertiesToRemoveFromExternalObject").disabled) {
         obj.PropertiesToRemoveFromExternalObject = ""
     }
@@ -41,6 +43,9 @@ function handleSubmit() {
     obj.RuleTargetType = stripAwsOrEntity(obj.ServiceNameInVendor) + stripAwsOrEntity(obj.EntityType)
 
     EntityName = "Aws" + obj.RuleTargetType
+
+    // validateDisplayName()
+
 
     updateRequestParams()
 
@@ -75,7 +80,7 @@ function handleSubmit() {
             "Vendor": "AWS",
             "AdditionalCollectionsToExposeInRE": obj.AdditionalCollectionsToExposeInRE,
             "ServiceNameInVendor": obj.ServiceNameInVendor.toLowerCase(),
-            "ServiceDisplayName": "Amazon " + obj.ServiceNameInVendor + " " + obj.EntityType
+            "ServiceDisplayName": obj.ServiceDisplayName
         }, "FetcherConfig": {
             "EntitiesCollection": EntityName + "Entity",
             "ShouldEnrichBaseEntity": document.getElementById("ShouldEnrichBaseEntity").checked,
@@ -325,3 +330,27 @@ function loadFromLocalStorage() {
 
 // mutuallyExclusive("ResponsePropertyToUse", "PropertiesToRemoveFromExternalObject")
 // mutuallyExclusive("ENRResponsePropertyToUse", "ENRPropertiesToRemoveFromExternalObject")
+
+function validateDisplayName() {
+    const displayName = formatInput(document.getElementById("ServiceDisplayName").value)
+    const serviceName = formatInput(document.getElementById("ServiceNameInVendor").value)
+    const type = formatInput(document.getElementById("EntityType").value)
+    DisplayNameChanged = (!isEmpty(displayName) && displayName !== formatInput("Amazon " + serviceName + " " + type))
+    console.log(displayName, formatInput("Amazon " + serviceName + " " + type))
+}
+
+function updateDisplayName() {
+    const displayName = document.getElementById("ServiceDisplayName")
+    const serviceName = formatInput(document.getElementById("ServiceNameInVendor").value)
+    const type = formatInput(document.getElementById("EntityType").value)
+    if (!DisplayNameChanged) {
+        displayName.placeholder = "automatic"
+        displayName.value = "Amazon " + serviceName + " " + type
+    } else {
+        displayName.placeholder = "manual"
+    }
+}
+
+document.getElementById("ServiceNameInVendor").addEventListener("keyup", updateDisplayName)
+document.getElementById("EntityType").addEventListener("keyup", updateDisplayName)
+document.getElementById("ServiceDisplayName").addEventListener("change", validateDisplayName)
