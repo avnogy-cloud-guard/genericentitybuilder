@@ -91,6 +91,10 @@ pre {
     outline: 2px solid black;
 }
 
+.required {
+    color: red;
+    font-size: small;
+}
 
 .grid-container {
     display: grid;

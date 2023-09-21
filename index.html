@@ -16,21 +16,26 @@
         <p style="font-size: smaller; margin-left: 25px">Hover over the names of the fields to show more</p>
         <p style="font-size: smaller; margin-left: 25px">You can click on Save and load to keep your work and get it
             back from localstorage
-        </p></div>
+        </p>
+        <p style="font-size: smaller; margin-left: 25px">This is Required<span class="required">*</span></p>
+    </div>
     <div class="grid-item"></div>
     <div class="grid-item"></div>
     <pre class="grid-item"><code id="result">Ready..</code></pre>
     <form class="grid-item" id="form">
         <div class="input-container">
-            <label for="ServiceNameInVendor" title="The name of the service in the vendor">Service Name</label>
+            <label for="ServiceNameInVendor" title="The name of the service in the vendor">Service Name<span
+                    class="required">*</span></label>
             <input id="ServiceNameInVendor" name="ServiceNameInVendor" placeholder="Ex: DataSync" type="text"/>
         </div>
         <div class="input-container">
-            <label for="EntityType" title="The name of the entity inside the service">Entity Name in service</label>
+            <label for="EntityType" title="The name of the entity inside the service">Entity Name in service<span
+                    class="required">*</span></label>
             <input id="EntityType" name="EntityType" placeholder="Ex: Task" type="text"/>
         </div>
         <div class="input-container">
-            <label for="IsRulesEngineBaseEntity" title="Determines if the entity will have a Rule Engine entity or not">IsRulesEngineBaseEntity</label>
+            <label for="IsRulesEngineBaseEntity" title="Determines if the entity will have a Rule Engine entity or not">IsRulesEngineBaseEntity<span
+                    class="required">*</span></label>
             <input id="IsRulesEngineBaseEntity" name="IsRulesEngineBaseEntity" type="checkbox"/>
         </div>
         <div class="input-container">
@@ -45,13 +50,15 @@
         <hr class="dashed">
         <div class="input-container">
             <label for="IsCronTriggered"
-                   title="determines in the producer runs according to time, should be true for base entities">IsCronTriggered</label>
+                   title="determines in the producer runs according to time, should be true for base entities">IsCronTriggered<span
+                    class="required">*</span></label>
             <input id="IsCronTriggered" name="IsCronTriggered" onclick="show('cron',this)"
                    type="checkbox"/>
         </div>
         <div class="input-container" id="cron">
             <label for="CronExpression"
-                   title="find the least busy minute in a minute timeslice and set it as the cron expression for the entity">CronExpression</label>
+                   title="find the least busy minute in a minute timeslice and set it as the cron expression for the entity">CronExpression<span
+                    class="required">*</span></label>
             <input id="CronExpression" name="CronExpression" type="text"/>
             <a href="#" id="sumo" onclick="copySumo()">Copy Sumo Query</a>
         </div>
@@ -84,7 +91,8 @@
         <hr class="dashed">
         <div class="input-container">
             <label for="ShouldIndexEntity"
-                   title="Determines if the entity should be indexed in the AssetsIndexer - should be true for all base entities and false for enrichments/non-RE base entities">ShouldIndexEntity</label>
+                   title="Determines if the entity should be indexed in the AssetsIndexer - should be true for all base entities and false for enrichments/non-RE base entities">ShouldIndexEntity<span
+                    class="required">*</span></label>
             <input id="ShouldIndexEntity" name="ShouldIndexEntity" type="checkbox"/>
         </div>
         <div class="input-container">
@@ -102,7 +110,8 @@ make sure you see your specific action under that event source.">LookupEventSour
         <div id="region">
             <div class="input-container">
                 <label for="ExcludedRegions"
-                       title="list of regions the service is not supported in, the values in this list will not be sent to the region dispatcher">ExcludedRegions</label>
+                       title="list of regions the service is not supported in, the values in this list will not be sent to the region dispatcher">ExcludedRegions<span
+                        class="required">*</span></label>
                 <input id="ExcludedRegions" name="ExcludedRegions" placeholder="Paste list here" type="text">
             </div>
         </div>
@@ -124,7 +133,8 @@ make sure you see your specific action under that event source.">LookupEventSour
         </div>
         <div class="input-container">
             <label for="ExternalEntityIdProperty"
-                   title="the property that returns from the API call that we wish to save as the unique external ID in the DB">ExternalEntityIdProperty</label>
+                   title="the property that returns from the API call that we wish to save as the unique external ID in the DB">ExternalEntityIdProperty<span
+                    class="required">*</span></label>
             <input id="ExternalEntityIdProperty" name="ExternalEntityIdProperty" type="text"/>
         </div>
         <div class="input-container">
@@ -140,17 +150,19 @@ make sure you see your specific action under that event source.">LookupEventSour
             <label for="AssemblyName" title="the name of the SDK Assembly - should be similar to ruleTargetType
 for example:
       Amazon. --> CodeStar <-- .Model.ListTagsForProjectRequest
-">AWSSDK Name</label>
+">AWSSDK Name<span class="required">*</span></label>
             <input id="AssemblyName" name="AssemblyName" placeholder="Ex: DataSync" type="text"/>
         </div>
         <div class="input-container">
             <label for="ApiCall"
-                   title="Name of action to be called, as appears in the documentation - this is the name of the request">ApiCall</label>
+                   title="Name of action to be called, as appears in the documentation - this is the name of the request">ApiCall<span
+                    class="required">*</span></label>
             <input id="ApiCall" name="ApiCall" placeholder="Ex: ListTasksAsync" type="text"/>
         </div>
         <div class="input-container">
             <label for="RequiredPermission"
-                   title="the permission the vendor requires from the client to accept the API call for this entity">RequiredPermission</label>
+                   title="the permission the vendor requires from the client to accept the API call for this entity">RequiredPermission<span
+                    class="required">*</span></label>
             <input id="RequiredPermission" name="RequiredPermission" placeholder="Ex: datasync:ListTasks" type="text"/>
         </div>
         <hr class="dashed">
@@ -187,12 +199,14 @@ See AwsMacieSession for reference.">IsExternalIdGenerated</label>
         <div id="enrichment">
             <div class="input-container">
                 <label for="ENRApiCall"
-                       title="Name of action to be called, as appears in the documentation - this is the name of the request">ApiCall</label>
+                       title="Name of action to be called, as appears in the documentation - this is the name of the request">ApiCall<span
+                        class="required">*</span></label>
                 <input id="ENRApiCall" name="ENRApiCall" placeholder="Ex: ListTagsForResourceAsync" type="text"/>
             </div>
             <div class="input-container">
                 <label for="ENRRequiredPermission"
-                       title="the permission the vendor requires from the client to accept the API call for this entity">RequiredPermission</label>
+                       title="the permission the vendor requires from the client to accept the API call for this entity">RequiredPermission<span
+                        class="required">*</span></label>
                 <input id="ENRRequiredPermission" name="ENRRequiredPermission" placeholder="Ex: datasync:TagResource"
                        type="text"/>
             </div>
@@ -210,7 +224,8 @@ See AwsMacieSession for reference.">IsExternalIdGenerated</label>
             </div>
 
             <div class="input-container">
-                <label title="parameters needed from the base entity to the enrichment API call">RequestParametersFromBaseEntity</label>
+                <label title="parameters needed from the base entity to the enrichment API call">RequestParametersFromBaseEntity<span
+                        class="required">*</span></label>
                 <input id="ENRRequestParametersFromBaseEntityENR" name="ENRRequestParametersFromBaseEntityENR"
                        placeholder="Enrichment" type="text"/>
                 <input id="ENRRequestParametersFromBaseEntityBase" name="ENRRequestParametersFromBaseEntityBase"
