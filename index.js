@@ -10,10 +10,11 @@ function copySumo() {
 }
 
 form.querySelectorAll("input").forEach(input => {
-    input.addEventListener("input", handleSubmit);
-    input.addEventListener("change", handleSubmit);
-    input.addEventListener("blur", handleSubmit);
+    input.addEventListener("input", refreshForm);
+    input.addEventListener("change", refreshForm);
+    input.addEventListener("blur", refreshForm);
 });
+document.getElementById("IsExternalIdGenerated").addEventListener("change", stashId)
 
 function show(who, obj, rev) {
     if ((rev && !obj.checked) || !rev && obj.checked) {
@@ -22,10 +23,10 @@ function show(who, obj, rev) {
     } else {
         document.getElementById(who).style.display = 'none';
     }
-    handleSubmit()
+    refreshForm()
 }
 
-function handleSubmit() {
+function refreshForm() {
     const data = new FormData(form);
     let obj = Object.fromEntries(data.entries());
     for (let key in obj) {
@@ -138,7 +139,7 @@ const stripAsyncOrRequest = input => formatInput(input).toString().replace(/(asy
 const stripAwsOrEntity = input => formatInput(input).toString().replace(/^(Aws)(.*)(Entity)$/i, '\$2');
 
 function saveTextAsFile() {
-    var textToWrite = handleSubmit()
+    var textToWrite = refreshForm()
     var textFileAsBlob = new Blob([textToWrite], {type: 'text/plain'});
 
     var fileNameToSaveAs = EntityName + ".json";
@@ -249,7 +250,7 @@ function removeInputPair(elem) {
     if (requestPair) {
         requestPair.remove();
     }
-    handleSubmit()
+    refreshForm()
 }
 
 function addRequestParametersAnswer(elem, name = '', value = '') {
@@ -258,12 +259,12 @@ function addRequestParametersAnswer(elem, name = '', value = '') {
     newRequestPair.classList.add('request-pair');
     newRequestPair.classList.add('input-container');
     newRequestPair.innerHTML = `
-         <input type="text" name="name" placeholder="Name" oninput="handleSubmit()" onblur="handleSubmit()" value="${name}">
-         <input type="text" name="value" placeholder="Value" oninput="handleSubmit()" onblur="handleSubmit()" value="${value}">
+         <input type="text" name="name" placeholder="Name" oninput="refreshForm()" onblur="refreshForm()" value="${name}">
+         <input type="text" name="value" placeholder="Value" oninput="refreshForm()" onblur="refreshForm()" value="${value}">
          <button type="button" class="request-button" onclick="removeInputPair(this)">-</button>
       `;
     requestContainer.appendChild(newRequestPair);
-    handleSubmit()
+    refreshForm()
 }
 
 function saveToLocalStorage() {
@@ -325,7 +326,7 @@ function loadFromLocalStorage() {
         addRequestParametersAnswer(RequestContainer, current["ParameterName"], current["ParameterValue"])
     }
 
-    handleSubmit()
+    refreshForm()
 }
 
 // mutuallyExclusive("ResponsePropertyToUse", "PropertiesToRemoveFromExternalObject")
