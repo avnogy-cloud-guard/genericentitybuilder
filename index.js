@@ -3,10 +3,26 @@ let EntityName = ""
 let RequestParameters = []
 let ENRRequestParameters = []
 let DisplayNameChanged = false
+let tempId = ""
 
 function copySumo() {
     navigator.clipboard.writeText('AwsGenericEntity producer published | parse "Entity=*." as entity   | timeslice 1m | count(entity) by _timeslice')
     document.getElementById("sumo").innerHTML = 'Copied!'
+}
+
+function stashId() {
+    let isGeneratedElem = document.getElementById("IsExternalIdGenerated")
+    let externalIdElem = document.getElementById("ExternalEntityIdProperty")
+
+    if (isGeneratedElem.checked && externalIdElem.value !== "ExternalIdGenerated") {
+        tempId = externalIdElem.value
+        externalIdElem.value = "ExternalIdGenerated"
+    } else {
+        if (!isGeneratedElem.checked && !isEmpty(externalIdElem.value)) {
+            externalIdElem.value = tempId
+        }
+    }
+    refreshForm()
 }
 
 form.querySelectorAll("input").forEach(input => {
