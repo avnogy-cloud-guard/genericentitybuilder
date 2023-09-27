@@ -301,6 +301,7 @@ function saveToLocalStorage() {
     localStorage.setItem("IsExternalIdGenerated", document.getElementById("IsExternalIdGenerated").checked)
     localStorage.setItem("ShouldEnrichBaseEntity", document.getElementById("ShouldEnrichBaseEntity").checked)
     localStorage.setItem("advanced-checkbox", document.getElementById("advanced-checkbox").checked)
+    localStorage.setItem("IsAdvPagination", document.getElementById("IsAdvPagination").checked)
 
     updateRequestParams()
     localStorage.setItem("params", JSON.stringify(RequestParameters))
@@ -328,6 +329,7 @@ function loadFromLocalStorage() {
     forceClick("IsExternalIdGenerated")
     forceClick("ShouldEnrichBaseEntity")
     forceClick("advanced-checkbox")
+    forceClick("IsAdvPagination")
 
     form.querySelectorAll(".request-pair").forEach(pair => {
         pair.remove(self)
