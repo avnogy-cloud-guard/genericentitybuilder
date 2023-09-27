@@ -5,7 +5,7 @@
     <title>Generic Builder</title>
     <script defer src="index.js"></script>
     <link href="global.css" rel="stylesheet"/>
-    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link href="./favicon.ico" rel="icon" type="image/x-icon">
 
 </head>
 <body>
@@ -180,6 +180,18 @@ for example:
             <label for="PaginationMarker" title="if the response is paginated this is the marker (usually NextToken)">PaginationMarker</label>
             <input id="PaginationMarker" name="PaginationMarker" placeholder="Ex: NextToken" type="text"/>
         </div>
+        <div class="input-container">
+            <label for="IsAdvPagination">Advanced</label>
+
+            <input id="IsAdvPagination" name="IsAdvPagination" onclick="show('pagination',this)"
+                   type="checkbox"/>
+        </div>
+        <div class="input-container" id="pagination">
+            <label for="ResponsePaginationMarker"
+                   title="Response PaginationMarker for if its different than the normal PaginationMarker">ResponsePaginationMarker</label>
+            <input id="ResponsePaginationMarker" name="ResponsePaginationMarker" type="text"/>
+        </div>
+
         <div class="input-container">
             <label for="IsExternalIdGenerated"
                    title=" in case there is not a proper property to use as an ExternalId - mark this field as true.

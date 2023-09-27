@@ -56,6 +56,9 @@ function refreshForm() {
     if (document.getElementById("ENRPropertiesToRemoveFromExternalObject").disabled) {
         obj.ENRPropertiesToRemoveFromExternalObject = ""
     }
+    if (!document.getElementById("IsAdvPagination").checked) {
+        obj.ResponsePaginationMarker = ""
+    }
 
     obj.RuleTargetType = stripAwsOrEntity(obj.ServiceNameInVendor) + stripAwsOrEntity(obj.EntityType)
 
@@ -129,6 +132,7 @@ function refreshForm() {
             },
             "RequestParameters": RequestParameters,
             "PaginationMarker": obj.PaginationMarker,
+            "ResponsePaginationMarker": obj.ResponsePaginationMarker,
             "IsExternalIdGenerated": document.getElementById("IsExternalIdGenerated").checked,
             "BasicEnrichmentConfig": BasicEnrichmentConfig,
         }
