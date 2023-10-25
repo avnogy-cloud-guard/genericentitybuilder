@@ -2,6 +2,10 @@ body {
     /*background: #f1f1f1;*/
 }
 
+a {
+    margin: 5px;
+}
+
 #code {
     font-family: Consolas, monospace;
 }
